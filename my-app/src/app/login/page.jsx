@@ -21,8 +21,8 @@ export default function LoginPage() {
               What is Lorem Ipsum Lorem Ipsum is simply dummy text of the
               printing and typesetting industry Lorem Ipsum has been the
               industry's standard dummy text ever since the 1500s when an
-              unknown printer took Link galley of type and scrambled it to make Link
-              type specimen book it has?
+              unknown printer took Link galley of type and scrambled it to make
+              Link type specimen book it has?
             </div>
           </div>
         </div>
@@ -30,7 +30,7 @@ export default function LoginPage() {
           <div className="max-w-md w-full space-y-8">
             <div className="text-center">
               <h2 className="mt-6 text-3xl font-bold text-gray-900">
-                Welcom Back!
+                Welcom to Partner of Life
               </h2>
               <p className="mt-2 text-sm text-gray-500">
                 Please sign in to your account
@@ -113,7 +113,10 @@ export default function LoginPage() {
                   </label>
                 </div>
                 <div className="text-sm">
-                  <Link href="/register" className="text-indigo-400 hover:text-blue-500">
+                  <Link
+                    href="/register"
+                    className="text-indigo-400 hover:text-blue-500"
+                  >
                     Forgot your password?
                   </Link>
                 </div>
@@ -127,13 +130,15 @@ export default function LoginPage() {
                 </button>
               </div>
               <p className="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
-                <span>Don't have an account?</span>
-                <Link
-                  href="/register"
-                  className="text-indigo-400 hover:text-blue-500 no-underline hover:underline cursor-pointer transition ease-in duration-300"
-                >
-                  Sign up
-                </Link>
+                <span>
+                  Don't have an account?{" "}
+                  <Link
+                    href="/register"
+                    className="text-indigo-400 hover:text-blue-500 no-underline hover:underline cursor-pointer transition ease-in duration-300"
+                  >
+                    Sign up
+                  </Link>
+                </span>
               </p>
             </form>
           </div>
