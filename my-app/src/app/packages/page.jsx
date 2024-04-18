@@ -1,9 +1,9 @@
 import Carousel from "@/components/Carousel";
 import FilterSortAndSearch from "@/components/Filter-Sort-Search";
 import Footer from "@/components/Footer";
-import PacketCard from "@/components/PacketCard";
+import PackageCard from "@/components/PackageCard";
 
-export default function PacketPage() {
+export default function PackagePage() {
   return (
     <>
       <Carousel />
@@ -15,7 +15,7 @@ export default function PacketPage() {
             </h1>
             <FilterSortAndSearch />
           </div>
-          <PacketCard />
+          <PackageCard />
         </div>
         <div className="w-full">
           <Footer />
