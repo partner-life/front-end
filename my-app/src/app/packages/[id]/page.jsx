@@ -1,5 +1,6 @@
 "use server";
 
+import ButtonOrder from "@/components/ButtonOrder";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
@@ -98,12 +99,12 @@ export default async function PackageDetailPage({ params }) {
                 </div>
               </div>
               <div className="flex">
-                <span className="title-font font-medium text-2xl text-gray-900">
+                <span className="title-font font-medium text-2xl text-gray-900 flex justify-center items-center">
                   1000
                 </span>
-                <button className="flex ml-auto border-0 py-2 px-6 btn btn-neutral rounded-3xl">
-                  Order now
-                </button>
+                <div className="flex ml-auto py-2 px-6">
+                <ButtonOrder/>
+                </div>
               </div>
             </div>
           </div>
