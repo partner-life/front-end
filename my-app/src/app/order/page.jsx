@@ -1,11 +1,11 @@
 import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+import NavbarPublic from "@/components/NavbarPublic";
 import OrderCard from "@/components/OrderCard";
 
 export default function OrderPage() {
   return (
     <>
-      <Navbar />
+      <NavbarPublic />
       <main className="flex min-h-screen flex-col items-center justify-between">
         <div className="p-10 w-screen">
           <div className="flex justify-center items-center h-1/4 mb-10">
