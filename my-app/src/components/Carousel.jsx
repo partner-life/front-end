@@ -1,36 +1,34 @@
-import Link from "next/link";
+"use client"
+
+import { Button, Typography } from "@material-tailwind/react";
 import NavbarPublic from "./NavbarPublic";
 
 export default function Carousel() {
   return (
     <>
-      <div className="card carousel w-full h-[720px] shadow-xl image-full">
-      <NavbarPublic />
-        <figure>
-          <img
-            src="https://cdn.pixabay.com/photo/2014/02/07/11/31/flowers-260893_1280.jpg"
-            alt="carousel"
-            className="h-full w-full object-cover object-center"
-          />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title text-[#EEEEEE] mt-20">lorem</h2>
-          <p className="text-[#EEEEEE]">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel
-            fugiat, laboriosam numquam error esse asperiores, tenetur saepe
-            reprehenderit architecto facere repellat molestias quam ad sunt
-            officiis odio distinctio exercitationem nulla?
-          </p>
-          <div className="card-actions justify-end">
-            <Link
-              href={"/"}
-              className="btn btn-neutral rounded-3xl text-[#EEEEEE] bg-[#191919] mb-20"
-            >
-              Shop now!
-            </Link>
-          </div>
+    <NavbarPublic/>
+    <div className="relative min-h-screen w-full bg-[url('https://cdn.pixabay.com/photo/2014/02/07/11/31/flowers-260893_1280.jpg')] bg-cover bg-no-repeat">
+    <div className="absolute inset-0 h-full w-full bg-gray-900/60" />
+    <div className="grid min-h-screen px-8">
+      <div className="container relative z-10 my-auto mx-auto grid place-items-center text-center">
+        <Typography variant="h1" color="white" className="lg:max-w-3xl">
+        Welcome to Partner of Life
+        </Typography>
+        <Typography
+          variant="lead"
+          color="white"
+          className="mt-1 mb-12 w-full md:max-w-full lg:max-w-2xl"
+        >
+          Make Your Dream Wedding Come True
+        </Typography>
+        <div className="flex items-center gap-4">
+          <Button variant="gradient" color="white">
+            Search
+          </Button>
         </div>
       </div>
+    </div>
+  </div>
     </>
   );
 }
