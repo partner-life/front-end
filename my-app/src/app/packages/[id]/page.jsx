@@ -1,8 +1,8 @@
 "use server";
 
-import ButtonOrder from "@/components/ButtonOrder";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import ModalFormOrder from "@/components/ModalFormOrder";
 
 export default async function PackageDetailPage({ params }) {
   return (
@@ -103,7 +103,7 @@ export default async function PackageDetailPage({ params }) {
                   1000
                 </span>
                 <div className="flex ml-auto py-2 px-6">
-                <ButtonOrder/>
+                <ModalFormOrder ButtonName={"submit"}/>
                 </div>
               </div>
             </div>
