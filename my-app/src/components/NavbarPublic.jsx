@@ -97,12 +97,12 @@ export default function NavbarPublic() {
             ))}
           </ul>
           <div className="hidden items-center gap-4 lg:flex">
-            <Link href="/login" target="_blank">
+            <Link href="/login">
               <Button color={isScrolling ? "gray" : "white"} variant="text">
                 Log in
               </Button>
             </Link>
-            <Link href="/logout" target="_blank">
+            <Link href="/login">
               <Button color={isScrolling ? "gray" : "white"}>Logout</Button>
             </Link>
           </div>
@@ -123,12 +123,13 @@ export default function NavbarPublic() {
               ))}
             </ul>
             <div className="mt-6 flex items-center gap-4">
-              <Button variant="text">Log in</Button>
-              <Link
-                href="https://www.materila-tailwind.com/blocks"
-                target="_blank"
-              >
-                <Button color="gray">blocks</Button>
+              <Link href="/login">
+                <Button color={isScrolling ? "gray" : "white"} variant="text">
+                  Log in
+                </Button>
+              </Link>
+              <Link href="/login">
+                <Button color={isScrolling ? "gray" : "white"}>Logout</Button>
               </Link>
             </div>
           </div>
