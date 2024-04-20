@@ -103,7 +103,7 @@ export default async function PackageDetailPage({ params }) {
                   1000
                 </span>
                 <div className="flex ml-auto py-2 px-6">
-                <ModalFormOrder ButtonName={"submit"}/>
+                <ModalFormOrder ButtonName={"Order now"}/>
                 </div>
               </div>
             </div>
