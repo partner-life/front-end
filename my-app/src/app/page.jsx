@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <Carousel />
-      <main className="flex min-h-screen flex-col items-center justify-between">
+      <main className="flex min-h-screen flex-col items-center justify-between bg-white">
         <div className="p-10 w-screen">
           <div className="card w-full h-[480px] flex justify-center items-center">
             <About />
