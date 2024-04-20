@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Navbar as MTNavbar,
@@ -12,7 +14,7 @@ function NavItem({ children, href }) {
   return (
     <li>
       <Typography
-        as="Link"
+        as="span"
         href={href || "#"}
         target={href ? "_blank" : "_self"}
         variant="paragraph"
@@ -89,11 +91,9 @@ export default function NavbarPublic() {
             }`}
           >
             {NAV_MENU.map(({ name, href }) => (
-              <Link href={href}>
-                <NavItem key={name}>
-                  <span>{name}</span>
-                </NavItem>
-              </Link>
+              <NavItem key={name}>
+                <Link href={href}>{name}</Link>
+              </NavItem>
             ))}
           </ul>
           <div className="hidden items-center gap-4 lg:flex">
@@ -117,8 +117,8 @@ export default function NavbarPublic() {
           <div className="container mx-auto mt-4 rounded-lg bg-white px-6 py-5">
             <ul className="flex flex-col gap-4 text-gray-900">
               {NAV_MENU.map(({ name, href }) => (
-                <NavItem key={name} href={href}>
-                  {name}
+                <NavItem key={name}>
+                  <Link href={href}>{name}</Link>
                 </NavItem>
               ))}
             </ul>

@@ -2,22 +2,7 @@
 
 import { Typography } from "@material-tailwind/react";
 
-const EVENT_INFO = [
-  {
-    title: "Cutting-Edge Insights!",
-    description:
-      "Gain deep insights into the latest AI trends, developments, and applications that are reshaping industries worldwide. ",
-    subTitle: "Presentation",
-  },
-  {
-    title: "Practical Knowledge!",
-    description:
-      "Attend workshops and hands-on sessions to acquire practical skills that you can apply immediately.",
-    subTitle: "Workshops",
-  },
-];
-
-export default async function About() {
+export default function About() {
   return (
     <section className="container mx-auto flex flex-col items-center px-4 py-10">
       <Typography variant="h6" className="text-center mb-2" color="orange">
