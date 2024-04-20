@@ -26,7 +26,7 @@ export default function ModalFormOrder({ButtonName}) {
           onClick={openModal}
           className="flex ml-auto border-0 py-2 px-6 btn btn-neutral rounded-3xl"
         >
-          Open Modal
+          {ButtonName}
         </button>
 
         {isOpen && (
@@ -125,7 +125,7 @@ export default function ModalFormOrder({ButtonName}) {
                       type="submit"
                       className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                     >
-                      {ButtonName}
+                      Submit
                     </button>
                   </div>
                 </form>
