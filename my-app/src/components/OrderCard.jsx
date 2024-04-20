@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ModalFormOrder from "./ModalFormOrder";
 
 export default function OrderCard() {
   return (
@@ -43,14 +44,10 @@ export default function OrderCard() {
         </div>
       </div>
       <div className="flex items-center justify-between mt-4">
-        <Link
-          href="#"
-          className="text-blue-600 dark:text-blue-400 hover:underline"
-        >
-          Contact us
-        </Link>
+        <ModalFormOrder ButtonName={"Update"} />
         <div className="flex items-center">
-          <p className="text-gray-600">Total Price: 1_000_000</p>
+          <p className="text-gray-600 mr-5">Total Price: Rp. 100.000.000,-</p>
+          <button className="flex ml-auto border-0 py-2 px-6 btn btn-neutral rounded-3xl">Payment</button>
         </div>
       </div>
     </div>
