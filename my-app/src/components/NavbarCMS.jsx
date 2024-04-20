@@ -18,14 +18,14 @@ export default function NavbarCMS({ page }) {
                 </span>
               </li>
               <li className="flex items-center text-blue-900 antialiased font-sans text-sm font-normal leading-normal cursor-pointer transition-colors duration-300 hover:text-blue-500">
-                <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
+                <Link href={"/cms"} className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
                   home
-                </p>
+                </Link>
               </li>
             </ol>
           </nav>
           <h6 className="block antialiased tracking-normal font-sans text-base font-semibold leading-relaxed text-gray-900">
-            home
+            {page}
           </h6>
         </div>
         <div className="flex items-center">
