@@ -65,7 +65,7 @@ export default function Sidebar() {
                 className="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white hover:bg-white/10 active:bg-white/30 w-full flex items-center gap-4 px-4 capitalize"
                 type="button"
               >
-                <svg class="fill-current h-5 w-5 " viewBox="0 0 24 24">
+                <svg className="fill-current h-5 w-5 " viewBox="0 0 24 24">
                   <path
                     d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2
                         2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0
@@ -85,16 +85,16 @@ export default function Sidebar() {
                 type="button"
               >
                 <svg
-                  class="w-5 h-5"
+                  className="w-5 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
                   ></path>
                 </svg>

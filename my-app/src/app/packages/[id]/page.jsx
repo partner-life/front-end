@@ -3,11 +3,13 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import ModalFormOrder from "@/components/ModalFormOrder";
+import ChatPublic from "@/components/ChatPublic";
 
 export default async function PackageDetailPage({ params }) {
   return (
     <>
     <Navbar/>
+    <ChatPublic/>
       <section className="text-gray-700 body-font overflow-hidden bg-white">
         <div className="container px-5 py-24 mx-auto">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
