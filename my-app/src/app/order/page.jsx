@@ -1,3 +1,4 @@
+import ChatPublic from "@/components/ChatPublic";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import OrderCard from "@/components/OrderCard";
@@ -6,6 +7,7 @@ export default function OrderPage() {
   return (
     <>
       <Navbar />
+      <ChatPublic/>
       <main className="flex min-h-screen flex-col items-center justify-between">
         <div className="p-10 w-screen bg-white">
           <div className="flex justify-center items-center h-1/4 my-10">
