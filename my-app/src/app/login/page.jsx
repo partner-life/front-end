@@ -1,8 +1,34 @@
+"use client"
+
+import { login } from "@/action/action";
+import { showError } from "@/lib/sweetAlert";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function LoginPage() {
+  const [input, setInput] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleOnChange = (event) => {
+    const { value, name } = event.target;
+    setInput({ ...input, [name]: value });
+  };
+
+  const handleOnClick = async (event) => {
+    event.preventDefault();
+    try {
+      await login(input);
+    } catch (error) {
+      if (error instanceof Error) {
+        showError(error.message);
+      }
+    }
+  };
+
   return (
-    <div className="relative min-h-screen flex ">
+    <div className="relative min-h-screen flex">
       <div className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
         <div
           className="sm:w-1/2 xl:w-3/5 h-full hidden md:flex flex-auto items-center justify-center p-10 overflow-hidden bg-purple-900 text-white bg-no-repeat bg-cover relative"
@@ -75,7 +101,7 @@ export default function LoginPage() {
               </span>
               <span className="h-px w-16 bg-gray-200" />
             </div>
-            <form className="mt-8 space-y-6" action="/" method="POST">
+            <form className="mt-8 space-y-6">
               <input type="hidden" name="remember" defaultValue="true" />
               <div className="relative">
                 <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">
@@ -83,8 +109,11 @@ export default function LoginPage() {
                 </label>
                 <input
                   className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
-                  type=""
-                  placeholder="Enter your Email"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={input.email}
+                  name="email"
+                  onChange={handleOnChange}
                 />
               </div>
               <div className="mt-8 content-center">
@@ -93,8 +122,11 @@ export default function LoginPage() {
                 </label>
                 <input
                   className="w-full content-center text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-indigo-500"
-                  type=""
+                  type="password"
                   placeholder="Enter your password"
+                  value={input.password}
+                  name="password"
+                  onChange={handleOnChange}
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -123,6 +155,7 @@ export default function LoginPage() {
               </div>
               <div>
                 <button
+                onClick={handleOnClick}
                   type="submit"
                   className="w-full flex justify-center bg-gradient-to-r from-indigo-500 to-blue-600  hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500"
                 >
