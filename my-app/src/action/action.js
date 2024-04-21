@@ -14,7 +14,7 @@ export async function register(newUser) {
 
   if (!response.ok) {
     const result = await response.json();
-    throw new Error(result.error);
+    throw new Error(result.message);
   }
 
   if (response.ok) {
@@ -33,7 +33,7 @@ export async function login(loginInput) {
 
   if (!response.ok) {
     const result = await response.json();
-    throw new Error(result.error);
+    throw new Error(result.message);
   }
 
   const result = await response.json();
@@ -42,4 +42,9 @@ export async function login(loginInput) {
     cookies().set("Authorization", `Bearer ${result.access_token}`);
     return redirect("/packages");
   }
+}
+
+export async function logout() {
+  cookies().get("Authorization") && cookies().delete("Authorization");
+  return redirect("/login");
 }

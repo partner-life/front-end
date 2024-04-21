@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import {
   Navbar as MTNavbar,
   Collapse,
@@ -9,6 +8,8 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import Link from "next/link";
+import { logout } from "@/action/action";
+import { useEffect, useState } from "react";
 
 function NavItem({ children, href }) {
   return (
@@ -41,19 +42,19 @@ const NAV_MENU = [
   },
 ];
 export default function Navbar() {
-  const [open, setOpen] = React.useState(false);
-  const [isScrolling, setIsScrolling] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
 
   const handleOpen = () => setOpen((cur) => !cur);
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpen(false)
     );
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     function handleScroll() {
       if (window.scrollY > 0) {
         setIsScrolling(true);
@@ -102,9 +103,12 @@ export default function Navbar() {
                 Log in
               </Button>
             </Link>
-            <Link href="/logout" target="_blank">
-              <Button color={isScrolling ? "gray" : "black"}>Logout</Button>
-            </Link>
+            <Button
+              onClick={() =>  logout()}
+              color={isScrolling ? "gray" : "black"}
+            >
+              Logout
+            </Button>
           </div>
           <IconButton
             variant="text"
@@ -124,12 +128,9 @@ export default function Navbar() {
             </ul>
             <div className="mt-6 flex items-center gap-4">
               <Button variant="text">Log in</Button>
-              <Link
-                href="https://www.materila-tailwind.com/blocks"
-                target="_blank"
-              >
-                <Button color="gray">blocks</Button>
-              </Link>
+              <button target="_blank">
+                <Button color="gray">Logout</Button>
+              </button>
             </div>
           </div>
         </Collapse>
