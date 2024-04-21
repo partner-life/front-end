@@ -1,6 +1,34 @@
+"use client";
+
+import { register } from "@/action/action";
+import { showError } from "@/lib/sweetAlert";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function RegisterPage() {
+  const [input, setInput] = useState({
+    name: "",
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const handleOnChange = (event) => {
+    const { value, name } = event.target;
+    setInput({ ...input, [name]: value });
+  };
+
+  const handleOnSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await register(input);
+    } catch (error) {
+      if (error instanceof Error) {
+        showError(error.message);
+      }
+    }
+  };
+
   return (
     <div className="relative min-h-screen flex ">
       <div className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
@@ -14,16 +42,32 @@ export default function RegisterPage() {
                 Please register your account
               </p>
             </div>
-            <form className="mt-8 space-y-6" action="/" method="POST">
+            <form className="mt-8 space-y-6">
               <input type="hidden" name="remember" defaultValue="true" />
+              <div className="relative">
+                <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">
+                  Name
+                </label>
+                <input
+                  className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+                  type="text"
+                  placeholder="Name"
+                  value={input.name}
+                  name="name"
+                  onChange={handleOnChange}
+                />
+              </div>
               <div className="relative">
                 <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">
                   Username
                 </label>
                 <input
                   className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
-                  type=""
+                  type="text"
                   placeholder="Username"
+                  value={input.username}
+                  name="username"
+                  onChange={handleOnChange}
                 />
               </div>
               <div className="relative">
@@ -32,8 +76,11 @@ export default function RegisterPage() {
                 </label>
                 <input
                   className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
-                  type=""
+                  type="email"
                   placeholder="Email"
+                  value={input.email}
+                  name="email"
+                  onChange={handleOnChange}
                 />
               </div>
               <div className="mt-8 content-center">
@@ -42,12 +89,16 @@ export default function RegisterPage() {
                 </label>
                 <input
                   className="w-full content-center text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-indigo-500"
-                  type=""
-                  placeholder="Password"
+                  type="password"
+                  placeholder="Enter your password"
+                  value={input.password}
+                  name="password"
+                  onChange={handleOnChange}
                 />
               </div>
               <div>
                 <button
+                  onClick={handleOnSubmit}
                   type="submit"
                   className="w-full flex justify-center bg-gradient-to-r from-indigo-500 to-blue-600  hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500"
                 >
