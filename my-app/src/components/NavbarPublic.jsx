@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { useEffect, useState } from "react";
 import {
   Navbar as MTNavbar,
   Collapse,
@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import Link from "next/link";
+import { logout } from "@/action/action";
 
 function NavItem({ children, href }) {
   return (
@@ -41,19 +42,19 @@ const NAV_MENU = [
   },
 ];
 export default function NavbarPublic() {
-  const [open, setOpen] = React.useState(false);
-  const [isScrolling, setIsScrolling] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
 
   const handleOpen = () => setOpen((cur) => !cur);
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpen(false)
     );
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     function handleScroll() {
       if (window.scrollY > 0) {
         setIsScrolling(true);
@@ -102,9 +103,12 @@ export default function NavbarPublic() {
                 Log in
               </Button>
             </Link>
-            <Link href="/login">
-              <Button color={isScrolling ? "gray" : "white"}>Logout</Button>
-            </Link>
+            <Button
+              onClick={() => logout()}
+              color={isScrolling ? "gray" : "white"}
+            >
+              Logout
+            </Button>
           </div>
           <IconButton
             variant="text"
@@ -128,9 +132,12 @@ export default function NavbarPublic() {
                   Log in
                 </Button>
               </Link>
-              <Link href="/login">
-                <Button color={isScrolling ? "gray" : "white"}>Logout</Button>
-              </Link>
+              <Button
+                onClick={() => logout()}
+                color={isScrolling ? "gray" : "white"}
+              >
+                Logout
+              </Button>
             </div>
           </div>
         </Collapse>
