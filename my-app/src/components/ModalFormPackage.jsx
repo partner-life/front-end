@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function ModalFormPackage({ ButtonName }) {
   const [isOpen, setIsOpen] = useState(false);
-  const weddingCategory = ["standard", "national", "international"];
+  const weddingCategory = ["regular", "VIP"];
 
   const openModal = () => {
     setIsOpen(true);
@@ -78,14 +78,9 @@ export default function ModalFormPackage({ ButtonName }) {
                   </label>
                   <div className="flex gap-5">
                     <input
-                      type="text"
-                      placeholder="Image 1"
-                      className="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Image 2 (Optional)"
-                      className="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      type="file"
+                      className="file-input file-input-bordered file-input-sm w-full h-[38px] mt-1"
+                      multiple
                     />
                   </div>
                   <label className="block mt-3 text-sm font-medium text-gray-700">
