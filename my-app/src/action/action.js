@@ -50,6 +50,25 @@ export async function logout() {
   return redirect("/login");
 }
 
+export async function fetchPackages() {
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_BASE_URL + "/package?page=1&limit=4"
+  );
+
+  const packages = await response.json();
+
+  return packages;
+}
+
+export async function fetchPackageById(id) {
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_BASE_URL + `/package/${id}`
+  );
+
+  const packages = await response.json()
+  return packages;
+}
+
 export async function getAllPackages() {
   const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/package");
 
