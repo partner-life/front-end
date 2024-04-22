@@ -1,7 +1,7 @@
 import Link from "next/link";
 import ModalFormOrder from "./ModalFormOrder";
 
-export default function OrderCard() {
+export default function OrderCard({ order }) {
   return (
     <div className="w-full px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
       <div className="flex items-center justify-between">
@@ -12,7 +12,7 @@ export default function OrderCard() {
           className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500"
           role="button"
         >
-          Status
+          {order.status}
         </div>
       </div>
       <div className="mt-2">
@@ -24,30 +24,38 @@ export default function OrderCard() {
         </Link>
         <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-y">
           <p className="text-gray-600">Husband's name</p>
-          <p>John</p>
+          <p>{order.Profile.nameHusband}</p>
         </div>
         <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
           <p className="text-gray-600">Wife's name</p>
-          <p>Avril</p>
+          <p>{order.Profile.nameWife}</p>
         </div>
         <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
           <p className="text-gray-600">Marriage Date</p>
-          <p>October 12, 2024</p>
+          <p>{order.Profile.dateOfMerried}</p>
         </div>
         <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
           <p className="text-gray-600">Phone Number</p>
-          <p>+62 8135 1234 123</p>
+          <p>{order.Profile.phoneNumber}</p>
         </div>
         <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
           <p className="text-gray-600">Wedding Address</p>
-          <p>Wedding hall on Aston</p>
+          <p>{order.Profile.address}</p>
         </div>
       </div>
       <div className="flex items-center justify-between mt-4">
-        <ModalFormOrder ButtonName={"Update"} />
+        <ModalFormOrder ButtonName={"Update"} order={order}/>
         <div className="flex items-center">
-          <p className="text-gray-600 mr-5">Total Price: Rp. 100.000.000,-</p>
-          <button className="flex ml-auto border-0 py-2 px-6 btn btn-neutral rounded-3xl">Payment</button>
+          <p className="text-gray-600 mr-5">
+            Total Price:{" "}
+            {order.price.toLocaleString("id-ID", {
+              style: "currency",
+              currency: "IDR",
+            })}
+          </p>
+          <button className="flex ml-auto border-0 py-2 px-6 btn btn-neutral rounded-3xl">
+            Payment
+          </button>
         </div>
       </div>
     </div>
