@@ -1,6 +1,6 @@
 import { getAllPackages } from "@/action/action";
 import ModalFormPackage from "./ModalFormPackage";
-import DeleteProduct from "./ButtonDeleteProduct";
+import DeletePackage from "./ButtonDeletePackage";
 
 export default async function TablePackage() {
   const data = await getAllPackages();
@@ -68,7 +68,7 @@ export default async function TablePackage() {
                           </svg>
                         }
                       />
-                      <DeleteProduct _id={packageData._id} />
+                      <DeletePackage _id={packageData._id} />
                     </div>
                   </td>
                 </tr>
