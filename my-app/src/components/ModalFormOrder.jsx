@@ -13,8 +13,7 @@ export default function ModalFormOrder({ ButtonName, packageId }) {
     phoneNumber: "",
     dateOfMerried: "",
   });
-
-  console.log(input)
+  
   const handleOnChange = (event) => {
     const { value, name } = event.target;
     setInput({ ...input, [name]: value });
