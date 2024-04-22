@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -66,4 +67,30 @@ export async function fetchPackageById(id) {
 
   const packages = await response.json()
   return packages;
+}
+
+export async function getAllPackages() {
+  const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/package");
+
+  if (!response.ok) {
+    const result = await response.json();
+    throw new Error(result.message);
+  }
+
+  return response.json();
+}
+
+export async function deletePackage(_id) {
+  const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/deletepackage/" + _id, {
+    method: "DELETE",
+    headers: {
+      Authorization: cookies().get("Authorization").value,
+    },
+  });
+  if (!response.ok) {
+    const result = await response.json();
+    throw new Error(result.message);
+  } else {
+    revalidatePath("/cms/packages");
+  }
 }
