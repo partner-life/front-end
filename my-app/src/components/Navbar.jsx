@@ -128,9 +128,9 @@ export default function Navbar() {
             </ul>
             <div className="mt-6 flex items-center gap-4">
               <Button variant="text">Log in</Button>
-              <button target="_blank">
+              <div target="_blank">
                 <Button color="gray">Logout</Button>
-              </button>
+              </div>
             </div>
           </div>
         </Collapse>

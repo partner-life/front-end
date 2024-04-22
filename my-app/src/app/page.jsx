@@ -1,3 +1,6 @@
+"use server";
+
+import { fetchPackages } from "@/action/action";
 import About from "@/components/About";
 import Carousel from "@/components/Carousel";
 import ChatPublic from "@/components/ChatPublic";
@@ -5,11 +8,13 @@ import Footer from "@/components/Footer";
 import PackageCard from "@/components/PackageCard";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  const data = await fetchPackages();
+
   return (
     <>
       <Carousel />
-      <ChatPublic/>
+      <ChatPublic />
       <main className="flex min-h-screen flex-col items-center justify-between bg-white">
         <div className="p-10 w-screen">
           <div className="card w-full h-[480px] flex justify-center items-center">
@@ -24,7 +29,9 @@ export default function Home() {
             </Link>
           </div>
           <div className="flex flex-nowrap overflow-x-auto gap-5 max-w-full h-full w-full">
-            <PackageCard />
+            {data.packages.map((packageData,i) => {
+              return <PackageCard key={i} packageData={packageData} />;
+            })}
           </div>
         </div>
         <div className="w-full">

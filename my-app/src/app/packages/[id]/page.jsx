@@ -4,26 +4,29 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import ModalFormOrder from "@/components/ModalFormOrder";
 import ChatPublic from "@/components/ChatPublic";
+import { fetchPackageById } from "@/action/action";
 
 export default async function PackageDetailPage({ params }) {
+  const data = await fetchPackageById(params.id);
+
   return (
     <>
-    <Navbar/>
-    <ChatPublic/>
+      <Navbar />
+      <ChatPublic />
       <section className="text-gray-700 body-font overflow-hidden bg-white">
         <div className="container px-5 py-24 mx-auto">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
             <img
-              alt="ecommerce"
+              alt="package"
               className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-              src={"test"}
+              src={data.imageUrl[0]}
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest">
                 PACKAGE NAME
               </h2>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                NAME
+                {data.name}
               </h1>
               <div className="flex mb-4">
                 <span className="flex items-center">
@@ -85,27 +88,39 @@ export default async function PackageDetailPage({ params }) {
                   <span className="text-gray-600 ml-3">4 Reviews</span>
                 </span>
               </div>
-              <p className="leading-relaxed">DESCRIPTION</p>
+              <label className="font-bold">Description</label>
+              <p className="leading-relaxed mt-2">{data.description}</p>
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5 justify-between">
                 <div className="mt-2">
                   <label>Image product</label>
                   <div className="flex gap-5 mt-5">
-                    <img className="h-28 w-28" src={"image1"} alt="image1" />
-                    <img className="h-28 w-28" src={"image2"} alt="image2" />
-                    <img className="h-28 w-28" src={"image3"} alt="image3" />
+                    <img
+                      className="h-28 w-28"
+                      src={data.imageUrl[1]}
+                      alt="image1"
+                    />
+                    <img
+                      className="h-28 w-28"
+                      src={data.imageUrl[2]}
+                      alt="image2"
+                    />
+                    <img
+                      className="h-28 w-28"
+                      src={data.imageUrl[3]}
+                      alt="image3"
+                    />
                   </div>
-                </div>
-                <div className="flex flex-col mx-5 items-center">
-                  <span className="text-xl">Category</span>
-                  <div className="mt-5">TEST</div>
                 </div>
               </div>
               <div className="flex">
                 <span className="title-font font-medium text-2xl text-gray-900 flex justify-center items-center">
-                  1000
+                  {data.price.toLocaleString("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  })}
                 </span>
                 <div className="flex ml-auto py-2 px-6">
-                <ModalFormOrder ButtonName={"Order now"}/>
+                  <ModalFormOrder ButtonName={"Order now"} />
                 </div>
               </div>
             </div>
