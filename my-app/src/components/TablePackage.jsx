@@ -67,6 +67,7 @@ export default async function TablePackage() {
                             />
                           </svg>
                         }
+                        packageData={packageData}
                       />
                       <DeletePackage _id={packageData._id} />
                     </div>

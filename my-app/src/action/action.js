@@ -75,3 +75,47 @@ export async function deletePackage(_id) {
     revalidatePath("/cms/packages");
   }
 }
+
+export async function getAllOrders() {
+  const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/allOrders");
+
+  if (!response.ok) {
+    const result = await response.json();
+    throw new Error(result.message);
+  }
+
+  return response.json();
+}
+
+export async function addPackage(product) {
+  const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/createpackage", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: cookies().get("Authorization").value,
+    },
+    body: JSON.stringify(product),
+  });
+  const result = await res.json();
+  if (res.ok) {
+    revalidatePath("/cms/packages");
+  }
+  console.log("🚀 ~ addPackage ~ result:", result);
+}
+
+export async function editPackage(data) {
+  const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/editpackage/" + data._id, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: cookies().get("Authorization").value,
+    },
+    body: JSON.stringify(data),
+  });
+  if (res.ok) {
+    revalidatePath("/cms/packages");
+  } else {
+    const result = await response.json();
+    throw new Error(result.message);
+  }
+}
