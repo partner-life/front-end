@@ -65,7 +65,7 @@ export async function fetchPackageById(id) {
     process.env.NEXT_PUBLIC_BASE_URL + `/package/${id}`
   );
 
-  const packages = await response.json()
+  const packages = await response.json();
   return packages;
 }
 
@@ -81,16 +81,39 @@ export async function getAllPackages() {
 }
 
 export async function deletePackage(_id) {
-  const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/deletepackage/" + _id, {
-    method: "DELETE",
-    headers: {
-      Authorization: cookies().get("Authorization").value,
-    },
-  });
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_BASE_URL + "/deletepackage/" + _id,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: cookies().get("Authorization").value,
+      },
+    }
+  );
   if (!response.ok) {
     const result = await response.json();
     throw new Error(result.message);
   } else {
     revalidatePath("/cms/packages");
+  }
+}
+
+export async function orderPackage(id, orderInput) {
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_BASE_URL + `/addOrders/${id}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: cookies().get("Authorization").value,
+      },
+      body: JSON.stringify(orderInput),
+    }
+  );
+  if (!response.ok) {
+    const result = await response.json();
+    throw new Error(result.message);
+  } else {
+    redirect(`/packages/${id}`);
   }
 }

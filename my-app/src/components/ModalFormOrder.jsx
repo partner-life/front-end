@@ -1,9 +1,35 @@
 "use client";
 
+import { orderPackage } from "@/action/action";
+import { showError } from "@/lib/sweetAlert";
 import { useState } from "react";
 
-export default function ModalFormOrder({ButtonName}) {
+export default function ModalFormOrder({ ButtonName, packageId }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [input, setInput] = useState({
+    husbandName: "",
+    wifeName: "",
+    address: "",
+    phoneNumber: "",
+    dateOfMerried: "",
+  });
+
+  console.log(input)
+  const handleOnChange = (event) => {
+    const { value, name } = event.target;
+    setInput({ ...input, [name]: value });
+  };
+
+  const handleOnSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await orderPackage(packageId, input);
+    } catch (error) {
+      if (error instanceof Error) {
+        showError(error.message);
+      }
+    }
+  };
 
   const openModal = () => {
     setIsOpen(true);
@@ -58,6 +84,9 @@ export default function ModalFormOrder({ButtonName}) {
                     Husband's name
                   </label>
                   <input
+                    value={input.husbandName}
+                    name="husbandName"
+                    onChange={handleOnChange}
                     type="text"
                     placeholder="Husband's name"
                     className="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -69,6 +98,9 @@ export default function ModalFormOrder({ButtonName}) {
                     Wife's name
                   </label>
                   <input
+                    value={input.wifeName}
+                    name="wifeName"
+                    onChange={handleOnChange}
                     type="text"
                     placeholder="Wife's name"
                     className="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -80,6 +112,9 @@ export default function ModalFormOrder({ButtonName}) {
                     Marriage Date
                   </label>
                   <input
+                    value={input.dateOfMerried}
+                    name="dateOfMerried"
+                    onChange={handleOnChange}
                     type="Date"
                     placeholder="Marriage Date"
                     className="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -92,13 +127,11 @@ export default function ModalFormOrder({ButtonName}) {
                   </label>
                   <div className="flex gap-5">
                     <input
+                      value={input.phoneNumber}
+                      name="phoneNumber"
+                      onChange={handleOnChange}
                       type="text"
                       placeholder="Phone Number"
-                      className="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Phone Number 2 (Optional)"
                       className="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     />
                   </div>
@@ -109,6 +142,9 @@ export default function ModalFormOrder({ButtonName}) {
                     Wedding Address
                   </label>
                   <input
+                    value={input.address}
+                    name="address"
+                    onChange={handleOnChange}
                     type="text"
                     placeholder="Wedding Address"
                     className="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -122,6 +158,7 @@ export default function ModalFormOrder({ButtonName}) {
                       Cancel
                     </button>
                     <button
+                      onClick={handleOnSubmit}
                       type="submit"
                       className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                     >
