@@ -11,11 +11,21 @@ import InfiniteScroll from "react-infinite-scroll-component";
 export default function PackagePage() {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [search, setSearch] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filter, setFilter] = useState("");
+  const [sort, setSort] = useState("");
   const limit = 8;
 
   const handleOnChangeSearch = (event) => {
-    setSearch(event.currentTarget.value);
+    setSearchQuery(event.currentTarget.value);
+  };
+
+  const handleOnChangeFilter = (event) => {
+    setFilter(event.currentTarget.value);
+  };
+
+  const handleOnChangeSort = (event) => {
+    setSort(event.currentTarget.value);
   };
 
   const handleOnClickSearch = async (event) => {
@@ -23,14 +33,14 @@ export default function PackagePage() {
 
     try {
       const response = await fetch(
-        process.env.NEXT_PUBLIC_BASE_URL + "/package?search=" + search,
+        process.env.NEXT_PUBLIC_BASE_URL + "/package?search=" + searchQuery + "&filter=" + filter + "&sort=" + sort,
         {
           cache: "no-store",
         }
       );
       const result = await response.json();
 
-      setData(result);
+      setData(result.packages);
     } catch (error) {
       console.log(error);
     }
@@ -39,8 +49,7 @@ export default function PackagePage() {
   const fetchPackages = async () => {
     try {
       const response = await fetch(
-        process.env.NEXT_PUBLIC_BASE_URL +
-          `/package?page=${currentPage}&limit=${limit}`,
+        process.env.NEXT_PUBLIC_BASE_URL + `/package?page=${currentPage}&limit=${limit}&filter=${filter}&sort=${sort}`,
         {
           cache: "no-store",
         }
@@ -55,7 +64,27 @@ export default function PackagePage() {
 
   useEffect(() => {
     fetchPackages();
-  }, []);
+  }, [filter, sort]);
+
+  useEffect(() => {
+    const searchPackages = async () => {
+      try {
+        const response = await fetch(
+          process.env.NEXT_PUBLIC_BASE_URL + "/package?search=" + searchQuery + "&category=" + filter + "&sortByPrice=" + sort,
+          {
+            cache: "no-store",
+          }
+        );
+        const result = await response.json();
+
+        setData(result.packages);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    searchPackages();
+  }, [searchQuery, filter, sort]);
 
   return (
     <>
@@ -64,10 +93,31 @@ export default function PackagePage() {
       <main className="flex min-h-screen flex-col items-center justify-between">
         <div className="p-10 w-screen">
           <div className="flex justify-between items-center h-1/4 mb-5">
-            <h1 className="text-4xl font-bold">
-              Make Your Dream Wedding Come True
-            </h1>
-            <FilterSortAndSearch />
+            <h1 className="text-4xl font-bold">Make Your Dream Wedding Come True</h1>
+            {/* <FilterSortAndSearch /> */}
+            <div className="navbar-end join flex justify-end mr-5">
+              <div>
+                <div>
+                  <input
+                    type="text"
+                    className="input input-bordered join-item"
+                    placeholder="Search"
+                    onChange={handleOnChangeSearch}
+                    value={searchQuery}
+                  />{" "}
+                </div>
+              </div>
+              <select value={filter} onChange={handleOnChangeFilter} className="select select-bordered join-item">
+                <option value={""}>-- Filter --</option>
+                <option value={"VIP"}>VIP</option>
+                <option value={"Reguler"}>Regular</option>
+              </select>
+              <select value={sort} onChange={handleOnChangeSort} className="select select-bordered join-item">
+                <option value={""}>-- Sort By Price --</option>
+                <option value={1}>Cheap</option>
+                <option value={-1}>Expensive</option>
+              </select>
+            </div>
           </div>
           <InfiniteScroll
             className="py-5 w-full h-[720px] flex flex-wrap gap-5 flex justify-start items-center"
