@@ -114,6 +114,40 @@ export async function orderPackage(id, orderInput) {
     const result = await response.json();
     throw new Error(result.message);
   } else {
-    redirect(`/packages/${id}`);
+    redirect(`/order`);
+  }
+}
+
+export async function fetchOrderHistory() {
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_BASE_URL + `/historyOrder`,
+    {
+      chace: "no-store",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: cookies().get("Authorization").value,
+      },
+    }
+  );
+
+  const order = await response.json();
+  return order;
+}
+
+export async function updateOrder(orderId, orderInput) {
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_BASE_URL + `/updateOrders/${orderId}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: cookies().get("Authorization").value,
+      },
+      body: JSON.stringify(orderInput),
+    }
+  );
+  if (!response.ok) {
+    const result = await response.json();
+    throw new Error(result.message);
   }
 }

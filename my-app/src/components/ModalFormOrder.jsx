@@ -1,10 +1,10 @@
 "use client";
 
-import { orderPackage } from "@/action/action";
+import { orderPackage, updateOrder } from "@/action/action";
 import { showError } from "@/lib/sweetAlert";
 import { useState } from "react";
 
-export default function ModalFormOrder({ ButtonName, packageId }) {
+export default function ModalFormOrder({ ButtonName, packageId, order }) {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState({
     husbandName: "",
@@ -13,16 +13,27 @@ export default function ModalFormOrder({ ButtonName, packageId }) {
     phoneNumber: "",
     dateOfMerried: "",
   });
-  
+
   const handleOnChange = (event) => {
     const { value, name } = event.target;
     setInput({ ...input, [name]: value });
   };
 
-  const handleOnSubmit = async (event) => {
+  const handleAddPackage = async (event) => {
     event.preventDefault();
     try {
       await orderPackage(packageId, input);
+    } catch (error) {
+      if (error instanceof Error) {
+        showError(error.message);
+      }
+    }
+  };
+
+  const handleEditPackage = async (event) => {
+    event.preventDefault();
+    try {
+      await updateOrder(order._id, input);
     } catch (error) {
       if (error instanceof Error) {
         showError(error.message);
@@ -71,12 +82,8 @@ export default function ModalFormOrder({ ButtonName, packageId }) {
                     className="text-lg font-medium leading-6 text-gray-800 capitalize"
                     id="modal-title"
                   >
-                    Invite your team
+                    {order ? "Edit Order" : "Add order"}
                   </h3>
-                  <p className="mt-2 text-sm text-gray-500">
-                    Your new project has been created. Invite your team to
-                    collaborate on this project.
-                  </p>
                 </div>
                 <form className="px-6 pt-4 pb-6">
                   <label className="block text-sm font-medium text-gray-700">
@@ -157,7 +164,7 @@ export default function ModalFormOrder({ ButtonName, packageId }) {
                       Cancel
                     </button>
                     <button
-                      onClick={handleOnSubmit}
+                      onClick={order ? handleEditPackage : handleAddPackage}
                       type="submit"
                       className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                     >
