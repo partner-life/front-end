@@ -23,8 +23,8 @@ export default function ChatAdmin() {
     const conversation = session.getOrCreateConversation("new_conversation");
 
     const other = new Talk.User({
-      id: "test",
-      name: "Rohim",
+      id: "test123",
+      name: "test123",
       email: "frank@example.com",
       photoUrl: "https://talkjs.com/new-web/avatar-8.jpg",
       welcomeMessage: "Hi!",
