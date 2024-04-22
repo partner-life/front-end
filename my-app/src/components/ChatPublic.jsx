@@ -12,8 +12,8 @@ export default function ChatPublic() {
   const syncUser = useCallback(
     () =>
       new Talk.User({
-        id: "test",
-        name: "test",
+        id: "test123",
+        name: "test123",
         email: "frank@example.com",
         photoUrl: "https://talkjs.com/new-web/avatar-8.jpg",
         welcomeMessage: "Hi!",
@@ -23,6 +23,7 @@ export default function ChatPublic() {
 
   const syncConversation = useCallback((session) => {
     const conversation = session.getOrCreateConversation("new_conversation");
+    console.log(conversation)
 
     const other = new Talk.User({
       id: "nina",
