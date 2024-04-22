@@ -2,7 +2,7 @@
 
 import { deletePackage } from "@/action/action";
 
-export default function DeleteProduct({ _id }) {
+export default function DeletePackage({ _id }) {
   return (
     <>
       <button
