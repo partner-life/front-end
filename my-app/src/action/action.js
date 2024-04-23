@@ -38,15 +38,25 @@ export async function login(loginInput) {
   }
 
   const result = await response.json();
+  const { _id, name, username, email, role } = result.user;
 
   if (result) {
     cookies().set("Authorization", `Bearer ${result.access_token}`);
-    return redirect("/packages");
+    cookies().set("User", { _id, name, username, email, role });
+    cookies().set("Role", role);
+
+    if (role == "admin") {
+      return redirect("/cms");
+    } else {
+      return redirect("/");
+    }
   }
 }
 
 export async function logout() {
   cookies().get("Authorization") && cookies().delete("Authorization");
+  cookies().get("User") && cookies().delete("User");
+  cookies().get("Role") && cookies().delete("Role");
   return redirect("/login");
 }
 
