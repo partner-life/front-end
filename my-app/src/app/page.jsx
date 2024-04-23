@@ -2,10 +2,12 @@
 
 import { fetchPackages } from "@/action/action";
 import About from "@/components/About";
+import Benefit from "@/components/Benefit";
 import Carousel from "@/components/Carousel";
 import ChatPublic from "@/components/ChatPublic";
 import Footer from "@/components/Footer";
 import PackageCard from "@/components/PackageCard";
+import Vanues from "@/components/Vanues";
 import Link from "next/link";
 
 export default async function Home() {
@@ -29,11 +31,13 @@ export default async function Home() {
             </Link>
           </div>
           <div className="flex flex-nowrap overflow-x-auto gap-5 max-w-full h-full w-full">
-            {data.packages.map((packageData,i) => {
+            {data.packages.map((packageData, i) => {
               return <PackageCard key={i} packageData={packageData} />;
             })}
           </div>
         </div>
+        <Benefit />
+        <Vanues/>
         <div className="w-full">
           <Footer />
         </div>
