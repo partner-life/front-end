@@ -19,9 +19,9 @@ export default function OrderPage() {
   const handlePayment = async () => {
     try {
       // await payment(order[0].price, order[0]._id, order[0].Package[0].name);
-      const order_id = order[2]._id;
-      const gross_amount = order[2].price;
-      const item_name = order[2].Package[0].name;
+      const order_id = order[order.length - 1]._id;
+      const gross_amount = order[order.length - 1].price;
+      const item_name = order[order.length - 1].Package[0].name;
 
       // Mengirim permintaan pembuatan transaksi
 
