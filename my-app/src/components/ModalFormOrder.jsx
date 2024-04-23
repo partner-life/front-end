@@ -10,13 +10,14 @@ export default function ModalFormOrder({
   order,
   fetchOrder,
 }) {
+  const data = order ? order : "";
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState({
-    husbandName: "",
-    wifeName: "",
-    address: "",
-    phoneNumber: "",
-    dateOfMerried: "",
+    husbandName: data.Profile?.husbandName ? data.Profile?.husbandName : "",
+    wifeName: data.Profile?.wifeName ? data.Profile?.wifeName : "",
+    address: data.Profile?.address ? data.Profile?.address : "",
+    phoneNumber: data.Profile?.phoneNumber ? data.Profile?.phoneNumber : "",
+    dateOfMerried: data.Profile?.dateOfMerried ? data.Profile?.dateOfMerried : "",
   });
 
   const handleOnChange = (event) => {
