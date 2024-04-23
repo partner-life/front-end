@@ -6,7 +6,7 @@ import TablePackage from "@/components/TablePackage";
 export default function CMSPackagesPage() {
   return (
     <div className="min-h-screen bg-gray-50/50">
-      <Sidebar />
+      <Sidebar activePage={"packages"}/>
       <div className="p-4 xl:ml-80">
         <NavbarCMS page={"packages"} />
         <div className="mt-12">

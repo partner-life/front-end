@@ -6,7 +6,7 @@ import TableUser from "@/components/TableUser";
 export default function CMSUsersPage() {
   return (
     <div className="min-h-screen bg-gray-50/50">
-      <Sidebar />
+      <Sidebar activePage={"users"}/>
       <div className="p-4 xl:ml-80">
         <NavbarCMS page={"Users"} />
         <div className="mt-12">
