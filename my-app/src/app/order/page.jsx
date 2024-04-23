@@ -1,21 +1,76 @@
 "use client";
 
-import { fetchOrderHistory, payment } from "@/action/action";
+import { fetchOrderHistory } from "@/action/action";
 import ChatPublic from "@/components/ChatPublic";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import OrderCard from "@/components/OrderCard";
 import { useEffect, useState } from "react";
+import Cookies from "universal-cookie";
 
 export default function OrderPage() {
   const [order, setOrder] = useState([]);
+  const cookies = new Cookies();
   const fetchOrder = async () => {
     const result = await fetchOrderHistory();
     setOrder(result);
   };
 
   const handlePayment = async () => {
-    await payment(order.price, order._id, order.name);
+    try {
+      // await payment(order[0].price, order[0]._id, order[0].Package[0].name);
+      const order_id = order[2]._id;
+      const gross_amount = order[2].price;
+      const item_name = order[2].Package[0].name;
+
+      // Mengirim permintaan pembuatan transaksi
+
+      const createTransactionResponse = await fetch(
+        "http://localhost:3001/create-transaction/" + order_id,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: cookies.get("Authorization"),
+          },
+          body: JSON.stringify({ gross_amount, order_id, item_name }),
+        }
+      );
+
+      if (!createTransactionResponse.ok) {
+        const result = await createTransactionResponse.json();
+        return;
+      }
+
+      // Mendapatkan data JSON dari respons pertama
+      const createTransactionData = await createTransactionResponse.json();
+      const { token } = createTransactionData;
+
+      window.snap.pay(token, {
+        onSuccess: async () => {
+          try {
+            const handleAfterPaymentResponse = await fetch(
+              "http://localhost:3001/handling-after-payment",
+              {
+                method: "POST",
+                headers: {
+                  Authorization: cookies.get("Authorization"),
+                },
+              }
+            );
+
+            if (!handleAfterPaymentResponse.ok) {
+              const result = await handleAfterPaymentResponse.json();
+              return;
+            }
+          } catch (error) {
+            console.error("Error handling after payment:", error);
+          }
+        },
+      });
+    } catch (error) {
+      console.error("Error handling payment:", error);
+    }
   };
 
   useEffect(() => {

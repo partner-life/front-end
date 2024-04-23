@@ -33,7 +33,13 @@ export default function PackagePage() {
 
     try {
       const response = await fetch(
-        process.env.NEXT_PUBLIC_BASE_URL + "/package?search=" + searchQuery + "&filter=" + filter + "&sort=" + sort,
+        process.env.NEXT_PUBLIC_BASE_URL +
+          "/package?search=" +
+          searchQuery +
+          "&filter=" +
+          filter +
+          "&sort=" +
+          sort,
         {
           cache: "no-store",
         }
@@ -49,7 +55,8 @@ export default function PackagePage() {
   const fetchPackages = async () => {
     try {
       const response = await fetch(
-        process.env.NEXT_PUBLIC_BASE_URL + `/package?page=${currentPage}&limit=${limit}&filter=${filter}&sort=${sort}`,
+        process.env.NEXT_PUBLIC_BASE_URL +
+          `/package?page=${currentPage}&limit=${limit}&filter=${filter}&sort=${sort}`,
         {
           cache: "no-store",
         }
@@ -70,7 +77,13 @@ export default function PackagePage() {
     const searchPackages = async () => {
       try {
         const response = await fetch(
-          process.env.NEXT_PUBLIC_BASE_URL + "/package?search=" + searchQuery + "&category=" + filter + "&sortByPrice=" + sort,
+          process.env.NEXT_PUBLIC_BASE_URL +
+            "/package?search=" +
+            searchQuery +
+            "&category=" +
+            filter +
+            "&sortByPrice=" +
+            sort,
           {
             cache: "no-store",
           }
@@ -93,7 +106,9 @@ export default function PackagePage() {
       <main className="flex min-h-screen flex-col items-center justify-between">
         <div className="p-10 w-screen">
           <div className="flex justify-between items-center h-1/4 mb-5">
-            <h1 className="text-4xl font-bold">Make Your Dream Wedding Come True</h1>
+            <h1 className="text-4xl font-bold">
+              Make Your Dream Wedding Come True
+            </h1>
             {/* <FilterSortAndSearch /> */}
             <div className="navbar-end join flex justify-end mr-5">
               <div>
@@ -107,12 +122,20 @@ export default function PackagePage() {
                   />{" "}
                 </div>
               </div>
-              <select value={filter} onChange={handleOnChangeFilter} className="select select-bordered join-item">
+              <select
+                value={filter}
+                onChange={handleOnChangeFilter}
+                className="select select-bordered join-item"
+              >
                 <option value={""}>-- Filter --</option>
                 <option value={"VIP"}>VIP</option>
                 <option value={"Reguler"}>Regular</option>
               </select>
-              <select value={sort} onChange={handleOnChangeSort} className="select select-bordered join-item">
+              <select
+                value={sort}
+                onChange={handleOnChangeSort}
+                className="select select-bordered join-item"
+              >
                 <option value={""}>-- Sort By Price --</option>
                 <option value={1}>Cheap</option>
                 <option value={-1}>Expensive</option>
@@ -129,7 +152,9 @@ export default function PackagePage() {
               flexWrap: "wrap",
               gap: 16,
             }}
-            loader={<h4>Loading...</h4>}
+            loader={
+              <span className="loading loading-spinner loading-lg"></span>
+            }
             scrollableTarget="scrollableDiv"
             endMessage={
               <div
