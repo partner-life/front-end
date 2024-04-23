@@ -24,23 +24,23 @@ export default function OrderCard({ order, fetchOrder, handlePayment }) {
         </Link>
         <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-y">
           <p className="text-gray-600">Husband's name</p>
-          <p>{order.Profile.nameHusband}</p>
+          <p>{order.Profile?.husbandName}</p>
         </div>
         <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
           <p className="text-gray-600">Wife's name</p>
-          <p>{order.Profile.nameWife}</p>
+          <p>{order.Profile?.wifeName}</p>
         </div>
         <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
           <p className="text-gray-600">Marriage Date</p>
-          <p>{order.Profile.dateOfMerried}</p>
+          <p>{order.Profile?.dateOfMerried}</p>
         </div>
         <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
           <p className="text-gray-600">Phone Number</p>
-          <p>{order.Profile.phoneNumber}</p>
+          <p>{order.Profile?.phoneNumber}</p>
         </div>
         <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
           <p className="text-gray-600">Wedding Address</p>
-          <p>{order.Profile.address}</p>
+          <p>{order.Profile?.address}</p>
         </div>
       </div>
       <div className="flex items-center justify-between mt-4">
