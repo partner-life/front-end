@@ -1,7 +1,6 @@
-import { getAllOrders } from "@/action/action";
+export default async function TableOrder({ dataOrders, totalOrder }) {
+  const data = await dataOrders;
 
-export default async function TableOrder() {
-  const data = await getAllOrders();
   return (
     <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md overflow-hidden xl:col-span-2 w-full">
       <div className="relative bg-clip-border rounded-xl overflow-hidden bg-transparent text-gray-700 shadow-none m-0 flex items-center justify-between p-6">
@@ -21,7 +20,7 @@ export default async function TableOrder() {
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
             </svg>
-            <strong>3 success payment</strong> this month
+            <strong>{totalOrder} success payment</strong> so far
           </p>
         </div>
         <button
@@ -58,6 +57,9 @@ export default async function TableOrder() {
                 <p className="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">package</p>
               </th>
               <th className="border-b border-blue-gray-50 py-3 px-6 text-left">
+                <p className="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">user name</p>
+              </th>
+              <th className="border-b border-blue-gray-50 py-3 px-6 text-left">
                 <p className="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">price</p>
               </th>
               <th className="border-b border-blue-gray-50 py-3 px-6 text-left">
@@ -71,27 +73,43 @@ export default async function TableOrder() {
                 <tr>
                   <td className="py-3 px-5 border-b border-blue-gray-50">
                     <div className="flex items-center gap-4">
-                      <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">{order.name}</p>
+                      <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">
+                        {order.Package[0].name}
+                      </p>
                     </div>
                   </td>
                   <td className="py-3 px-5 border-b border-blue-gray-50">
-                    <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">$14,000</p>
+                    <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">{order.User[0].name}</p>
+                  </td>
+                  <td className="py-3 px-5 border-b border-blue-gray-50">
+                    <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">{order.price}</p>
                   </td>
                   <td className="py-3 px-5 border-b border-blue-gray-50">
                     <div className="w-10/12">
-                      <p className="antialiased font-sans mb-1 block text-xs font-medium text-blue-gray-600">payment</p>
+                      <p className="antialiased font-sans mb-1 block text-xs font-medium text-blue-gray-600">{order.status}</p>
                       <div className="flex flex-start bg-blue-gray-50 overflow-hidden w-full rounded-sm font-sans text-xs font-medium h-1">
-                        <div
+                        {order.status === "Sudah Dibayar" ? (
+                          <div
+                            className="flex justify-center items-center h-full bg-gradient-to-tr from-green-600 to-green-400 text-white"
+                            style={{ width: "100%" }}
+                          />
+                        ) : (
+                          <div
+                            className="flex justify-center items-center h-full bg-gradient-to-tr from-blue-600 to-blue-400 text-white"
+                            style={{ width: "66%" }}
+                          />
+                        )}
+                        {/* <div
                           className="flex justify-center items-center h-full bg-gradient-to-tr from-green-600 to-green-400 text-white"
                           style={{ width: "100%" }}
-                        />
+                        /> */}
                       </div>
                     </div>
                   </td>
                 </tr>
               );
             })}
-            <tr>
+            {/* <tr>
               <td className="py-3 px-5 border-b border-blue-gray-50">
                 <div className="flex items-center gap-4">
                   <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">package one</p>
@@ -111,8 +129,8 @@ export default async function TableOrder() {
                   </div>
                 </div>
               </td>
-            </tr>
-            <tr>
+            </tr> */}
+            {/* <tr>
               <td className="py-3 px-5 border-b border-blue-gray-50">
                 <div className="flex items-center gap-4">
                   <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">package two</p>
@@ -132,8 +150,8 @@ export default async function TableOrder() {
                   </div>
                 </div>
               </td>
-            </tr>
-            <tr>
+            </tr> */}
+            {/* <tr>
               <td className="py-3 px-5 border-b border-blue-gray-50">
                 <div className="flex items-center gap-4">
                   <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">package three</p>
@@ -153,7 +171,7 @@ export default async function TableOrder() {
                   </div>
                 </div>
               </td>
-            </tr>
+            </tr> */}
           </tbody>
         </table>
       </div>
