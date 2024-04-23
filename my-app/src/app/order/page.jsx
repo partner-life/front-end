@@ -16,18 +16,20 @@ export default function OrderPage() {
     setOrder(result);
   };
 
-  const handlePayment = async () => {
+  const handlePayment = async (orderId, gross_amount, item_name) => {
     try {
       // await payment(order[0].price, order[0]._id, order[0].Package[0].name);
-      const order_id = order[2]._id;
-      const gross_amount = order[2].price;
-      const item_name = order[2].Package[0].name;
+      // const order_id = order[order.length - 1]._id;
+      // const gross_amount = order[order.length - 1].price;
+      // const item_name = order[order.length - 1].Package[0].name;
 
       // Mengirim permintaan pembuatan transaksi
 
+      const order_id = orderId;
       const createTransactionResponse = await fetch(
-        "http://localhost:3001/create-transaction/" + order_id,
+        process.env.NEXT_PUBLIC_BASE_URL + "/create-transaction/" + orderId,
         {
+          cache: "no-store",
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -39,7 +41,7 @@ export default function OrderPage() {
 
       if (!createTransactionResponse.ok) {
         const result = await createTransactionResponse.json();
-        return;
+        return result;
       }
 
       // Mendapatkan data JSON dari respons pertama
@@ -50,7 +52,7 @@ export default function OrderPage() {
         onSuccess: async () => {
           try {
             const handleAfterPaymentResponse = await fetch(
-              "http://localhost:3001/handling-after-payment",
+              process.env.NEXT_PUBLIC_BASE_URL + "/handling-after-payment",
               {
                 method: "POST",
                 headers: {
