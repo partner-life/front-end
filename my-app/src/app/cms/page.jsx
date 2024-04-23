@@ -1,14 +1,41 @@
+import { getAllOrders, getAllPackages } from "@/action/action";
 import Footer from "@/components/Footer";
 import NavbarCMS from "@/components/NavbarCMS";
 import Sidebar from "@/components/Sidebar";
 import TableOrder from "@/components/TableOrder";
 
-export default function CMSHome() {
+export default async function CMSHome() {
+  const data = await getAllOrders();
+
+  let totalHargaSudahDibayar = 0;
+  let totalOrderYangSudahBerhasil = 0;
+
+  data.forEach((transaction) => {
+    if (transaction.status === "Sudah Dibayar") {
+      totalHargaSudahDibayar += transaction.price;
+      totalOrderYangSudahBerhasil++;
+    }
+  });
+
+  async function getAllUsers() {
+    const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/showAllUser");
+
+    if (!response.ok) {
+      const result = await response.json();
+      throw new Error(result.message);
+    }
+
+    return response.json();
+  }
+
+  const users = await getAllUsers();
+  const { packages } = await getAllPackages();
+
   return (
     <div className="min-h-screen bg-gray-50/50">
-      <Sidebar activePage={"dashboard"}/>
+      <Sidebar activePage={"dashboard"} />
       <div className="p-4 xl:ml-80">
-        <NavbarCMS page={"dashboard"}/>
+        <NavbarCMS page={"dashboard"} />
         <div className="mt-12">
           <div className="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
             <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md">
@@ -30,17 +57,17 @@ export default function CMSHome() {
                 </svg>
               </div>
               <div className="p-4 text-right">
-                <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                  Today's Money
-                </p>
+                <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Total's Money</p>
                 <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                  $53k
+                  {`${totalHargaSudahDibayar.toLocaleString("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  })}`}
                 </h4>
               </div>
               <div className="border-t border-blue-gray-50 p-4">
                 <p className="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600">
-                  <strong className="text-green-500">+55%</strong>&nbsp;than
-                  last week
+                  <strong className="text-green-500">+55%</strong>&nbsp;than last week
                 </p>
               </div>
             </div>
@@ -48,30 +75,28 @@ export default function CMSHome() {
               <div className="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-pink-600 to-pink-400 text-white shadow-pink-500/40 shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
                   viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                  className="w-6 h-6 text-white"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6"
                 >
                   <path
-                    fillRule="evenodd"
-                    d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
-                    clipRule="evenodd"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
                   />
                 </svg>
               </div>
               <div className="p-4 text-right">
-                <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                  Today's Users
-                </p>
+                <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Total's User</p>
                 <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                  2,300
+                  {users.length}
                 </h4>
               </div>
               <div className="border-t border-blue-gray-50 p-4">
                 <p className="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600">
-                  <strong className="text-green-500">+3%</strong>&nbsp;than last
-                  month
+                  <strong className="text-green-500">+3%</strong>&nbsp;than last month
                 </p>
               </div>
             </div>
@@ -79,26 +104,28 @@ export default function CMSHome() {
               <div className="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-green-600 to-green-400 text-white shadow-green-500/40 shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
                   viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                  className="w-6 h-6 text-white"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6"
                 >
-                  <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z" />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m7.875 14.25 1.214 1.942a2.25 2.25 0 0 0 1.908 1.058h2.006c.776 0 1.497-.4 1.908-1.058l1.214-1.942M2.41 9h4.636a2.25 2.25 0 0 1 1.872 1.002l.164.246a2.25 2.25 0 0 0 1.872 1.002h2.092a2.25 2.25 0 0 0 1.872-1.002l.164-.246A2.25 2.25 0 0 1 16.954 9h4.636M2.41 9a2.25 2.25 0 0 0-.16.832V12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 12V9.832c0-.287-.055-.57-.16-.832M2.41 9a2.25 2.25 0 0 1 .382-.632l3.285-3.832a2.25 2.25 0 0 1 1.708-.786h8.43c.657 0 1.281.287 1.709.786l3.284 3.832c.163.19.291.404.382.632M4.5 20.25h15A2.25 2.25 0 0 0 21.75 18v-2.625c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125V18a2.25 2.25 0 0 0 2.25 2.25Z"
+                  />
                 </svg>
               </div>
               <div className="p-4 text-right">
-                <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                  New Clients
-                </p>
+                <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Total's Package</p>
                 <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                  3,462
+                  {packages.length}
                 </h4>
               </div>
               <div className="border-t border-blue-gray-50 p-4">
                 <p className="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600">
-                  <strong className="text-red-500">-2%</strong>&nbsp;than
-                  yesterday
+                  <strong className="text-red-500">-2%</strong>&nbsp;than yesterday
                 </p>
               </div>
             </div>
@@ -115,23 +142,20 @@ export default function CMSHome() {
                 </svg>
               </div>
               <div className="p-4 text-right">
-                <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                  Sales
-                </p>
+                <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Total's Order Success</p>
                 <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                  $103,430
+                  {totalOrderYangSudahBerhasil}
                 </h4>
               </div>
               <div className="border-t border-blue-gray-50 p-4">
                 <p className="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600">
-                  <strong className="text-green-500">+5%</strong>&nbsp;than
-                  yesterday
+                  <strong className="text-green-500">+5%</strong>&nbsp;than yesterday
                 </p>
               </div>
             </div>
           </div>
           <div className="mb-4 grid grid-cols-1 gap-6">
-            <TableOrder/>
+            <TableOrder totalOrder={totalOrderYangSudahBerhasil} dataOrders={data} />
           </div>
         </div>
         <div className="text-blue-gray-600 mt-10">
