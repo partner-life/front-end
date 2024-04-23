@@ -2,7 +2,23 @@
 
 import Link from "next/link";
 
-export default function Sidebar() {
+export default function Sidebar({ activePage }) {
+  const activeButtonColor = (active) => {
+    switch (active) {
+      case "dashboard":
+        return "middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 text-white shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85] w-full flex items-center gap-4 px-4 capitalize";
+      case "packages":
+        return "middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 text-white shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85] w-full flex items-center gap-4 px-4 capitalize";
+      case "messages":
+        return "middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 text-white shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85] w-full flex items-center gap-4 px-4 capitalize";
+      case "users":
+        return "middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 text-white shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85] w-full flex items-center gap-4 px-4 capitalize";
+
+      default:
+        return "middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white hover:bg-white/10 active:bg-white/30 w-full flex items-center gap-4 px-4 capitalize";
+    }
+  };
+
   return (
     <aside className="bg-gradient-to-br from-gray-800 to-gray-900 -translate-x-80 fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0">
       <div className="relative border-b border-white/20">
@@ -39,7 +55,11 @@ export default function Sidebar() {
           <li>
             <Link aria-current="page" className="active" href="/cms">
               <button
-                className="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg bg-gradient-to-tr from-blue-600 to-blue-400 text-white shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85] w-full flex items-center gap-4 px-4 capitalize"
+                className={
+                  activePage == "dashboard"
+                    ? activeButtonColor(activePage)
+                    : activeButtonColor()
+                }
                 type="button"
               >
                 <svg
@@ -53,15 +73,19 @@ export default function Sidebar() {
                   <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
                 </svg>
                 <p className="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize">
-                  dashboard
+                  Dashboard
                 </p>
               </button>
             </Link>
           </li>
           <li>
             <Link className="" href="/cms/packages">
-              <button
-                className="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white hover:bg-white/10 active:bg-white/30 w-full flex items-center gap-4 px-4 capitalize"
+            <button
+                className={
+                  activePage == "packages"
+                    ? activeButtonColor(activePage)
+                    : activeButtonColor()
+                }
                 type="button"
               >
                 <svg className="fill-current h-5 w-5 " viewBox="0 0 24 24">
@@ -79,8 +103,12 @@ export default function Sidebar() {
           </li>
           <li>
             <Link className="" href="/cms/messages">
-              <button
-                className="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white hover:bg-white/10 active:bg-white/30 w-full flex items-center gap-4 px-4 capitalize"
+            <button
+                className={
+                  activePage == "messages"
+                    ? activeButtonColor(activePage)
+                    : activeButtonColor()
+                }
                 type="button"
               >
                 <svg
@@ -105,8 +133,12 @@ export default function Sidebar() {
           </li>
           <li>
             <Link className="" href="/cms/users">
-              <button
-                className="middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg text-white hover:bg-white/10 active:bg-white/30 w-full flex items-center gap-4 px-4 capitalize"
+            <button
+                className={
+                  activePage == "users"
+                    ? activeButtonColor(activePage)
+                    : activeButtonColor()
+                }
                 type="button"
               >
                 <svg

@@ -6,7 +6,7 @@ import TableOrder from "@/components/TableOrder";
 export default function CMSHome() {
   return (
     <div className="min-h-screen bg-gray-50/50">
-      <Sidebar />
+      <Sidebar activePage={"dashboard"}/>
       <div className="p-4 xl:ml-80">
         <NavbarCMS page={"dashboard"}/>
         <div className="mt-12">

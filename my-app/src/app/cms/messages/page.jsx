@@ -9,7 +9,7 @@ export default function CMSMessagesPage() {
   
   return (
     <div className="min-h-screen bg-gray-50/50">
-      <Sidebar />
+      <Sidebar activePage={"messages"}/>
       <div className="p-4 xl:ml-80">
         <NavbarCMS page={"Messages"} />
         <div className="mt-12">

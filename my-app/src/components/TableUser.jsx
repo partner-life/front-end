@@ -2,7 +2,9 @@ import ButtonDeleteUser from "./ButtonDeleteUser";
 
 export default async function TableUser() {
   async function getAllOrders() {
-    const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/showAllUser");
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_BASE_URL + "/showAllUser"
+    );
 
     if (!response.ok) {
       const result = await response.json();
@@ -27,44 +29,52 @@ export default async function TableUser() {
           <thead>
             <tr>
               <th className="border-b border-blue-gray-50 py-3 px-6 text-left">
-                <p className="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">name</p>
+                <p className="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">
+                  name
+                </p>
               </th>
               <th className="border-b border-blue-gray-50 py-3 px-6 text-left">
-                <p className="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">username</p>
+                <p className="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">
+                  username
+                </p>
               </th>
               <th className="border-b border-blue-gray-50 py-3 px-6 text-left">
-                <p className="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">email</p>
+                <p className="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">
+                  email
+                </p>
               </th>
               <th className="border-b border-blue-gray-50 py-3 px-6 text-left">
-                <p className="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">role</p>
-              </th>
-              <th className="border-b border-blue-gray-50 py-3 px-6 text-left">
-                <p className="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">action</p>
+                <p className="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">
+                  role
+                </p>
               </th>
             </tr>
           </thead>
           <tbody>
             {data.map((data) => {
               return (
-                <tr>
+                <tr key={data._id}>
                   <td className="py-3 px-5 border-b border-blue-gray-50">
                     <div className="flex items-center gap-4">
-                      <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">{data.name}</p>
+                      <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold">
+                        {data.name}
+                      </p>
                     </div>
                   </td>
                   <td className="py-3 px-5 border-b border-blue-gray-50">
-                    <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">{data.username}</p>
+                    <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">
+                      {data.username}
+                    </p>
                   </td>
                   <td className="py-3 px-5 border-b border-blue-gray-50">
-                    <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">{data.email}</p>
+                    <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">
+                      {data.email}
+                    </p>
                   </td>
                   <td className="py-3 px-5 border-b border-blue-gray-50">
-                    <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">{data.role}</p>
-                  </td>
-                  <td className="py-3 px-5 border-b border-blue-gray-50">
-                    <div className="w-10/12 flex gap-10">
-                      <ButtonDeleteUser _id={data._id} />
-                    </div>
+                    <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">
+                      {data.role}
+                    </p>
                   </td>
                 </tr>
               );
