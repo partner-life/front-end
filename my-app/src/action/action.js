@@ -214,43 +214,55 @@ export async function editPackage(data) {
   }
 }
 
-export async function payment(gross_amount, order_id, item_name) {
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_BASE_URL + `/create-transaction/${order_id}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: cookies().get("Authorization").value,
-      },
-      body: JSON.stringify({ gross_amount, order_id, item_name }),
+export async function payment(
+  gross_amount,
+  order_id,
+  item_name,
+  authorization
+) {
+  try {
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_BASE_URL + `/create-transaction/${order_id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: authorization,
+        },
+        body: JSON.stringify({ gross_amount, order_id, item_name }),
+      }
+    );
+
+    if (!response.ok) {
+      const result = await response.json();
+      throw new Error(result.message);
     }
-  );
 
-  if (!response.ok) {
-    const result = await response.json();
-    throw new Error(result.message);
+    const responseData = await response.json();
+    const { token } = responseData;
+
+    // Sekarang Anda bisa menggunakan token seperti yang Anda lakukan sebelumnya
+
+    const handleAfterPaymentResponse = await fetch(
+      process.env.NEXT_PUBLIC_BASE_URL + `/handling-after-payment`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: authorization,
+        },
+      }
+    );
+
+    if (!handleAfterPaymentResponse.ok) {
+      const result = await handleAfterPaymentResponse.json();
+      throw new Error(result.message);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    throw new Error(error.message);
   }
+}
 
-  const responseData = await response.json();
-  const { token } = responseData;
-
-  window.snap.pay(token, {
-    onSuccess: async () => {
-      const response = await fetch(
-        process.env.NEXT_PUBLIC_BASE_URL + `/handling-after-payment`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: cookies().get("Authorization").value,
-          },
-        }
-      );
-    },
-  });
-
-  if (!response.ok) {
-    const result = await response.json();
-    throw new Error(result.message);
-  }
+export async function access_token() {
+  return cookies().get("Authorization").value;
 }
