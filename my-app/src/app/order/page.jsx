@@ -1,6 +1,6 @@
 "use client";
 
-import { fetchOrderHistory } from "@/action/action";
+import { fetchOrderHistory, payment } from "@/action/action";
 import ChatPublic from "@/components/ChatPublic";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -12,6 +12,10 @@ export default function OrderPage() {
   const fetchOrder = async () => {
     const result = await fetchOrderHistory();
     setOrder(result);
+  };
+
+  const handlePayment = async () => {
+    await payment(order.price,order._id,order.name);
   };
 
   useEffect(() => {
@@ -29,7 +33,7 @@ export default function OrderPage() {
           </div>
           <div className="px-10 w-full flex flex-wrap gap-5 flex justify-start items-center">
             {order.map((data, i) => {
-              return <OrderCard key={i} order={data} />;
+              return <OrderCard key={i} order={data} fetchOrder={fetchOrder} handlePayment={handlePayment}/>;
             })}
           </div>
         </div>

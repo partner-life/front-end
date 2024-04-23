@@ -4,7 +4,12 @@ import { orderPackage, updateOrder } from "@/action/action";
 import { showError } from "@/lib/sweetAlert";
 import { useState } from "react";
 
-export default function ModalFormOrder({ ButtonName, packageId, order }) {
+export default function ModalFormOrder({
+  ButtonName,
+  packageId,
+  order,
+  fetchOrder,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState({
     husbandName: "",
@@ -34,6 +39,8 @@ export default function ModalFormOrder({ ButtonName, packageId, order }) {
     event.preventDefault();
     try {
       await updateOrder(order._id, input);
+      fetchOrder();
+      closeModal();
     } catch (error) {
       if (error instanceof Error) {
         showError(error.message);
