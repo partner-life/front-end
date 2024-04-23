@@ -2,6 +2,7 @@
 
 import { register } from "@/action/action";
 import { showError } from "@/lib/sweetAlert";
+import { Typography } from "@material-tailwind/react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -137,18 +138,22 @@ export default function RegisterPage() {
           }}
         >
           <div className="absolute bg-gradient-to-b from-indigo-600 to-gray-500 opacity-75 inset-0 z-0" />
-          <div className="w-full  max-w-md z-10">
-            <div className="sm:text-4xl xl:text-5xl font-bold leading-tight mb-6">
-              Reference site about Lorem Ipsum..
-            </div>
-            <div className="sm:text-sm xl:text-md text-gray-200 font-normal">
-              {" "}
-              What is Lorem Ipsum Lorem Ipsum is simply dummy text of the
-              printing and typesetting industry Lorem Ipsum has been the
-              industry's standard dummy text ever since the 1500s when an
-              unknown printer took Link galley of type and scrambled it to make
-              Link type specimen book it has?
-            </div>
+          <div className="w-full max-w-2xl z-10">
+            <Typography
+              variant="lead"
+              className="sm:text-3xl xl:text-4xl font-bold leading-tight mb-6"
+            >
+              We are a team of passionate and experienced wedding planners
+            </Typography>
+            <Typography
+              variant="lead"
+              className="sm:text-sm xl:text-md text-gray-200 font-normal"
+            >
+              Our team of wedding planners is passionate about creating
+              unforgettable wedding experiences. We understand that every
+              wedding is unique, and we work closely with our clients to ensure
+              that their vision becomes a reality.
+            </Typography>
           </div>
         </div>
       </div>
