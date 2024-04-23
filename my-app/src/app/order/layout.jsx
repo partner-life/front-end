@@ -1,4 +1,4 @@
-import ServerProtectedComponent from "@/components/ServerProtectedComponent";
+import ServerProtectedComponentUser from "@/components/ServerProtectedComponentUser";
 import Head from "next/head";
 
 export default function OrderLayout({ children }) {
@@ -11,7 +11,7 @@ export default function OrderLayout({ children }) {
           data-client-key={process.env.MIDTRANS_CLIENT_KEY}
         ></script>
       </Head>
-      <ServerProtectedComponent>{children}</ServerProtectedComponent>;
+      <ServerProtectedComponentUser>{children}</ServerProtectedComponentUser>;
     </>
   );
 }
