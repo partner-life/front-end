@@ -263,6 +263,4 @@ export async function payment(
   }
 }
 
-export async function access_token() {
-  return cookies().get("Authorization").value;
-}
+

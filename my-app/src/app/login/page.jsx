@@ -2,16 +2,18 @@
 
 import { login } from "@/action/action";
 import { showError } from "@/lib/sweetAlert";
+// import { error } from "console";
 import { Typography } from "@material-tailwind/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Cookies from "universal-cookie";
 
 export default function LoginPage() {
   const [input, setInput] = useState({
     email: "",
     password: "",
   });
-
+  const cookies = new Cookies();
   const handleOnChange = (event) => {
     const { value, name } = event.target;
     setInput({ ...input, [name]: value });
@@ -27,6 +29,58 @@ export default function LoginPage() {
       }
     }
   };
+  async function handleCredentialResponse({ credential }) {
+    try {
+      console.log(credential);
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_BASE_URL + "/google-login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(credential),
+        }
+      );
+      console.log(response);
+      if (!response.ok) {
+        const result = await response.json();
+        console.log(error);
+      }
+      const result = await response.json();
+      console.log(result);
+      const { _id, name, username, email, role } = result.user;
+
+      if (result) {
+        cookies().set("Authorization", `Bearer ${result.access_token}`);
+        cookies().set("UserId", _id);
+        cookies().set("Name", name);
+        cookies().set("Username", username);
+        cookies().set("Email", email);
+        cookies().set("Role", role);
+
+        if (role == "admin") {
+          return redirect("/cms");
+        } else {
+          return redirect("/");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    google.accounts.id.initialize({
+      client_id:
+        "369116205353-v736tacvnuvpic22d3divttnim03oiod.apps.googleusercontent.com",
+      callback: handleCredentialResponse,
+    });
+
+    google.accounts.id.renderButton(
+      document.getElementById("buttonDiv"),
+      { theme: "outline", size: "large" } // customization attributes
+    );
+  }, []);
 
   return (
     <div className="relative min-h-screen flex">

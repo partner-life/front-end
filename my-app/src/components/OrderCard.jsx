@@ -75,7 +75,9 @@ export default function OrderCard({ order, fetchOrder, handlePayment }) {
               })}
             </p>
             <button
-              onClick={handlePayment}
+              onClick={() =>
+                handlePayment(order._id, order.price, order.Package[0].name)
+              }
               id="pay-button"
               className="flex ml-auto border-0 py-2 px-6 btn btn-neutral rounded-3xl "
             >
