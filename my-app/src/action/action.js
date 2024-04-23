@@ -42,7 +42,10 @@ export async function login(loginInput) {
 
   if (result) {
     cookies().set("Authorization", `Bearer ${result.access_token}`);
-    cookies().set("User", { _id, name, username, email, role });
+    cookies().set("UserId", _id);
+    cookies().set("Name", name);
+    cookies().set("Username", username);
+    cookies().set("Email", email);
     cookies().set("Role", role);
 
     if (role == "admin") {
@@ -55,7 +58,10 @@ export async function login(loginInput) {
 
 export async function logout() {
   cookies().get("Authorization") && cookies().delete("Authorization");
-  cookies().get("User") && cookies().delete("User");
+  cookies().get("UserId") && cookies().delete("UserId");
+  cookies().get("Name") && cookies().delete("Name");
+  cookies().get("Username") && cookies().delete("Username");
+  cookies().get("Email") && cookies().delete("Email");
   cookies().get("Role") && cookies().delete("Role");
   return redirect("/login");
 }
