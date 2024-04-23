@@ -191,7 +191,7 @@ export default function LoginPage() {
                 <span className="h-px w-16 bg-gray-200" />
               </div>
               <div className="flex flex-row justify-center items-center space-x-3">
-                <button className="btn btn-primary">Disini dul</button>
+                <div id=""></div>
               </div>
               <p className="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
                 <span>
