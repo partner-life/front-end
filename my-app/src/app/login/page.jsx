@@ -2,6 +2,7 @@
 
 import { login } from "@/action/action";
 import { showError } from "@/lib/sweetAlert";
+import { Typography } from "@material-tailwind/react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -38,31 +39,35 @@ export default function LoginPage() {
           }}
         >
           <div className="absolute bg-gradient-to-b from-indigo-600 to-gray-500 opacity-75 inset-0 z-0" />
-          <div className="w-full  max-w-md z-10">
-            <div className="sm:text-4xl xl:text-5xl font-bold leading-tight mb-6">
-              Reference site about Lorem Ipsum..
-            </div>
-            <div className="sm:text-sm xl:text-md text-gray-200 font-normal">
-              {" "}
-              What is Lorem Ipsum Lorem Ipsum is simply dummy text of the
-              printing and typesetting industry Lorem Ipsum has been the
-              industry's standard dummy text ever since the 1500s when an
-              unknown printer took Link galley of type and scrambled it to make
-              Link type specimen book it has?
-            </div>
+          <div className="w-full max-w-2xl z-10">
+            <Typography
+              variant="lead"
+              className="sm:text-3xl xl:text-4xl font-bold leading-tight mb-6"
+            >
+              We are a team of passionate and experienced wedding planners
+            </Typography>
+            <Typography
+              variant="lead"
+              className="sm:text-sm xl:text-md text-gray-200 font-normal"
+            >
+              Our team of wedding planners is passionate about creating
+              unforgettable wedding experiences. We understand that every
+              wedding is unique, and we work closely with our clients to ensure
+              that their vision becomes a reality.
+            </Typography>
           </div>
         </div>
         <div className="md:flex md:items-center md:justify-center w-full sm:w-auto md:h-full w-2/5 xl:w-2/5 p-8  md:p-10 lg:p-14 sm:rounded-lg md:rounded-none bg-white">
           <div className="max-w-md w-full space-y-8">
             <div className="text-center">
               <h2 className="mt-6 text-3xl font-bold text-gray-900">
-                Welcom to Partner of Life
+                Welcome to Partner of Life
               </h2>
               <p className="mt-2 text-sm text-gray-500">
                 Please sign in to your account
               </p>
             </div>
-            
+
             <form className="mt-8 space-y-6">
               <input type="hidden" name="remember" defaultValue="true" />
               <div className="relative">
@@ -132,8 +137,8 @@ export default function LoginPage() {
                 <span className="h-px w-16 bg-gray-200" />
               </div>
               <div className="flex flex-row justify-center items-center space-x-3">
-              <button className="btn btn-primary">Disini dul</button>
-            </div>
+                <button className="btn btn-primary">Disini dul</button>
+              </div>
               <p className="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
                 <span>
                   Don't have an account?{" "}
