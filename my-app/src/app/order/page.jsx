@@ -5,6 +5,7 @@ import ChatPublic from "@/components/ChatPublic";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import OrderCard from "@/components/OrderCard";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 
@@ -15,6 +16,7 @@ export default function OrderPage() {
     const result = await fetchOrderHistory();
     setOrder(result);
   };
+  const router = useRouter();
 
   const handlePayment = async (orderId, gross_amount, item_name) => {
     try {
@@ -50,24 +52,25 @@ export default function OrderPage() {
 
       window.snap.pay(token, {
         onSuccess: async () => {
-          try {
-            const handleAfterPaymentResponse = await fetch(
-              process.env.NEXT_PUBLIC_BASE_URL + "/handling-after-payment",
-              {
-                method: "POST",
-                headers: {
-                  Authorization: cookies.get("Authorization"),
-                },
-              }
-            );
+          router.refresh();
+          // try {
+          //   const handleAfterPaymentResponse = await fetch(
+          //     process.env.NEXT_PUBLIC_BASE_URL + "/handling-after-payment",
+          //     {
+          //       method: "POST",
+          //       headers: {
+          //         Authorization: cookies.get("Authorization"),
+          //       },
+          //     }
+          //   );
 
-            if (!handleAfterPaymentResponse.ok) {
-              const result = await handleAfterPaymentResponse.json();
-              return;
-            }
-          } catch (error) {
-            console.error("Error handling after payment:", error);
-          }
+          //   if (!handleAfterPaymentResponse.ok) {
+          //     const result = await handleAfterPaymentResponse.json();
+          //     return;
+          //   }
+          // } catch (error) {
+          //   console.error("Error handling after payment:", error);
+          // }
         },
       });
     } catch (error) {
