@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 export default function ModalFormPackage({ ButtonName, packageData }) {
   const data = packageData ? packageData : "";
 
+  const [selectedImages, setSelectedImages] = useState([]);
+
   const [formData, setFormData] = useState({
     name: data.name ? data.name : "",
     imageUrl: data.imageUrl ? data.imageUrl : "",
@@ -24,9 +26,36 @@ export default function ModalFormPackage({ ButtonName, packageData }) {
     }));
   };
 
+  async function handleImageUpload() {
+    try {
+      const formData = new FormData();
+      selectedImages.forEach((image) => formData.append("images", image));
+      const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/add-images", {
+        method: "PATCH",
+        body: formData,
+      });
+      const data = await response.json();
+      console.log("Gambar berhasil diunggah:", data);
+      setSelectedImages([]);
+      return data;
+    } catch (error) {
+      console.log("Gagal mengunggah gambar:", error);
+    }
+  }
+
+  const handleImageChange = (event) => {
+    setSelectedImages(Array.from(event.target.files));
+    console.log("🚀 ~ handleImageChange ~ setSelectedImages:", "setSelectedImages");
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    ButtonName === "Add New Package" ? await addPackage(formData) : await editPackage({ ...formData, _id: packageData._id });
+    const { images } = await handleImageUpload();
+    console.log("🚀 ~ handleSubmit ~ imgUrl:", images);
+    ButtonName === "Add New Package"
+      ? await addPackage({ ...formData, imageUrl: images })
+      : await editPackage({ ...formData, _id: packageData._id, imageUrl: images });
+    console.log("image...");
     closeModal();
   };
 
@@ -86,7 +115,12 @@ export default function ModalFormPackage({ ButtonName, packageData }) {
                     Image
                   </label>
                   <div className="flex gap-5">
-                    <input type="file" className="file-input file-input-bordered file-input-sm w-full h-[38px] mt-1" multiple />
+                    <input
+                      type="file"
+                      className="file-input file-input-bordered file-input-sm w-full h-[38px] mt-1"
+                      multiple
+                      onChange={handleImageChange}
+                    />
                   </div>
                   <label className="block mt-3 text-sm font-medium text-gray-700">Description</label>
                   <textarea
