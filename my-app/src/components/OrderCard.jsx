@@ -1,7 +1,7 @@
 import Link from "next/link";
 import ModalFormOrder from "./ModalFormOrder";
 
-export default function OrderCard({ order, fetchOrder, handlePayment }) {
+export default function OrderCard({ order, fetchOrder, handlePayment, className }) {
   const orderDate = new Date(order.createdAt);
   const statusButtonColor = (status) => {
     switch (status) {
@@ -9,7 +9,7 @@ export default function OrderCard({ order, fetchOrder, handlePayment }) {
         return "px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500";
       case "Sudah Dibayar":
         return "px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-green-600 rounded cursor-pointer hover:bg-green-500";
-     
+
       default:
         return "px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500";
     }
@@ -25,10 +25,7 @@ export default function OrderCard({ order, fetchOrder, handlePayment }) {
               dateStyle: "full",
             })}
           </span>
-          <div
-            className={statusButtonColor(order.status)}
-            role="button"
-          >
+          <div className={statusButtonColor(order.status)} role="button">
             {order.status}
           </div>
         </div>
@@ -61,11 +58,7 @@ export default function OrderCard({ order, fetchOrder, handlePayment }) {
           </div>
         </div>
         <div className="flex items-center justify-between mt-4">
-          <ModalFormOrder
-            fetchOrder={fetchOrder}
-            ButtonName={"Update"}
-            order={order}
-          />
+          <ModalFormOrder fetchOrder={fetchOrder} ButtonName={"Update"} order={order} />
           <div className="flex items-center">
             <p className="text-gray-600 mr-5">
               Total Price:{" "}
@@ -75,11 +68,10 @@ export default function OrderCard({ order, fetchOrder, handlePayment }) {
               })}
             </p>
             <button
-              onClick={() =>
-                handlePayment(order._id, order.price, order.Package[0].name)
-              }
+              onClick={() => handlePayment(order._id, order.price, order.Package[0].name)}
               id="pay-button"
-              className="flex ml-auto border-0 py-2 px-6 btn btn-neutral rounded-3xl "
+              // className="flex ml-auto border-0 py-2 px-6 btn btn-neutral rounded-3xl "
+              className={className}
             >
               Payment
             </button>
