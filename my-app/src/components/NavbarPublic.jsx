@@ -10,6 +10,7 @@ import {
 } from "@material-tailwind/react";
 import Link from "next/link";
 import { logout } from "@/action/action";
+import Cookies from "universal-cookie";
 
 function NavItem({ children, href }) {
   return (
@@ -44,6 +45,17 @@ const NAV_MENU = [
 export default function NavbarPublic() {
   const [open, setOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const cookies = new Cookies();
+  const token = cookies.get("Authorization");
+
+  const checkToken = () => {
+    if (token) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  };
 
   const handleOpen = () => setOpen((cur) => !cur);
 
@@ -52,6 +64,7 @@ export default function NavbarPublic() {
       "resize",
       () => window.innerWidth >= 960 && setOpen(false)
     );
+    checkToken();
   }, []);
 
   useEffect(() => {
@@ -77,7 +90,7 @@ export default function NavbarPublic() {
         color={isScrolling ? "white" : "transparent"}
         className="fixed top-0 z-50 border-0"
       >
-        <div className="container mx-auto flex items-center justify-between">
+        <div className="mx-[50px] flex items-center justify-between">
           <Link href={"/"}>
             <Typography
               color={isScrolling ? "blue-gray" : "white"}
@@ -87,7 +100,7 @@ export default function NavbarPublic() {
             </Typography>
           </Link>
           <ul
-            className={`ml-16 hidden items-center gap-6 lg:flex ${
+            className={`mr-5 hidden items-center gap-6 lg:flex ${
               isScrolling ? "text-gray-900" : "text-white"
             }`}
           >
@@ -98,17 +111,20 @@ export default function NavbarPublic() {
             ))}
           </ul>
           <div className="hidden items-center gap-4 lg:flex">
-            <Link href="/login">
-              <Button color={isScrolling ? "gray" : "white"} variant="text">
-                Log in
+            {isLogin ? (
+              <Button
+                onClick={() => logout()}
+                color={isScrolling ? "gray" : "white"}
+              >
+                Logout
               </Button>
-            </Link>
-            <Button
-              onClick={() => logout()}
-              color={isScrolling ? "gray" : "white"}
-            >
-              Logout
-            </Button>
+            ) : (
+              <Link href="/login">
+                <Button color={isScrolling ? "gray" : "white"} variant="text">
+                  Log in
+                </Button>
+              </Link>
+            )}
           </div>
           <IconButton
             variant="text"
@@ -127,17 +143,20 @@ export default function NavbarPublic() {
               ))}
             </ul>
             <div className="mt-6 flex items-center gap-4">
-              <Link href="/login">
-                <Button color={isScrolling ? "gray" : "white"} variant="text">
-                  Log in
+              {isLogin ? (
+                <Button
+                  onClick={() => logout()}
+                  color={isScrolling ? "gray" : "white"}
+                >
+                  Logout
                 </Button>
-              </Link>
-              <Button
-                onClick={() => logout()}
-                color={isScrolling ? "gray" : "white"}
-              >
-                Logout
-              </Button>
+              ) : (
+                <Link href="/login">
+                  <Button color={isScrolling ? "gray" : "white"} variant="text">
+                    Log in
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
         </Collapse>
