@@ -1,7 +1,7 @@
 import Link from "next/link";
 import ModalFormOrder from "./ModalFormOrder";
 
-export default function OrderCard({ order }) {
+export default function OrderCard({ order, fetchOrder, handlePayment }) {
   return (
     <div className="w-full px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
       <div className="flex items-center justify-between">
@@ -44,7 +44,11 @@ export default function OrderCard({ order }) {
         </div>
       </div>
       <div className="flex items-center justify-between mt-4">
-        <ModalFormOrder ButtonName={"Update"} order={order}/>
+        <ModalFormOrder
+          fetchOrder={fetchOrder}
+          ButtonName={"Update"}
+          order={order}
+        />
         <div className="flex items-center">
           <p className="text-gray-600 mr-5">
             Total Price:{" "}
@@ -53,7 +57,11 @@ export default function OrderCard({ order }) {
               currency: "IDR",
             })}
           </p>
-          <button className="flex ml-auto border-0 py-2 px-6 btn btn-neutral rounded-3xl">
+          <button
+            onClick={handlePayment}
+            id="pay-button"
+            className="flex ml-auto border-0 py-2 px-6 btn btn-neutral rounded-3xl"
+          >
             Payment
           </button>
         </div>
