@@ -59,7 +59,10 @@ export default async function CMSHome() {
               <div className="p-4 text-right">
                 <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Total's Money</p>
                 <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                  {`Rp. ${totalHargaSudahDibayar}`}
+                  {`${totalHargaSudahDibayar.toLocaleString("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  })}`}
                 </h4>
               </div>
               <div className="border-t border-blue-gray-50 p-4">
