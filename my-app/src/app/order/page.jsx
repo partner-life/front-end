@@ -28,18 +28,15 @@ export default function OrderPage() {
       // Mengirim permintaan pembuatan transaksi
 
       const order_id = orderId;
-      const createTransactionResponse = await fetch(
-        process.env.NEXT_PUBLIC_BASE_URL + "/create-transaction/" + orderId,
-        {
-          cache: "no-store",
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: cookies.get("Authorization"),
-          },
-          body: JSON.stringify({ gross_amount, order_id, item_name }),
-        }
-      );
+      const createTransactionResponse = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/create-transaction/" + orderId, {
+        cache: "no-store",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: cookies.get("Authorization"),
+        },
+        body: JSON.stringify({ gross_amount, order_id, item_name }),
+      });
 
       if (!createTransactionResponse.ok) {
         const result = await createTransactionResponse.json();
@@ -94,8 +91,10 @@ export default function OrderPage() {
           {order.length ? (
             <div className="px-10 w-full flex-wrap gap-5 flex justify-start items-center">
               {order.map((data, i) => {
+                console.log("🚀 ~ {order.map ~ order:", data.status);
                 return (
                   <OrderCard
+                    className={data.status === "Sudah Dibayar" ? "hidden" : "flex ml-auto border-0 py-2 px-6 btn btn-neutral rounded-3xl"}
                     key={i}
                     order={data}
                     fetchOrder={fetchOrder}
@@ -107,17 +106,9 @@ export default function OrderPage() {
           ) : (
             <div className="px-10 w-full h-[480px] gap-5 flex justify-center items-center">
               <div className="flex flex-col">
-                <img
-                  className="flex justify-center items-center mb-5 ml-[75px] h-[150px] w-[150px]"
-                  src="/no-order.png"
-                  alt="date"
-                />
-                <div className="flex justify-center items-center text-2xl font-bold mb-2">
-                  No Orders
-                </div>
-                <div className="flex justify-center items-center">
-                  You don't have any orders in your history.
-                </div>
+                <img className="flex justify-center items-center mb-5 ml-[75px] h-[150px] w-[150px]" src="/no-order.png" alt="date" />
+                <div className="flex justify-center items-center text-2xl font-bold mb-2">No Orders</div>
+                <div className="flex justify-center items-center">You don't have any orders in your history.</div>
               </div>
             </div>
           )}
