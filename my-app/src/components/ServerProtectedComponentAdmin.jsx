@@ -3,9 +3,9 @@ import { redirect } from "next/navigation";
 
 export default function ServerProtectedComponentAdmin({ children }) {
   const tokenCookie = cookies().get("Authorization");
-  const role = cookies().get("Role").value;
+  const role = cookies().get("Role")?.value;
 
-  if (!tokenCookie || role !== "admin") {
+  if (!tokenCookie || role !== "admin" || !role) {
     return redirect("/login");
   }
 
