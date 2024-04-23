@@ -2,15 +2,31 @@ import Link from "next/link";
 import ModalFormOrder from "./ModalFormOrder";
 
 export default function OrderCard({ order, fetchOrder, handlePayment }) {
+  const orderDate = new Date(order.createdAt);
+  const statusButtonColor = (status) => {
+    switch (status) {
+      case "Belum Bayar":
+        return "px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500";
+      case "Sudah Dibayar":
+        return "px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-green-600 rounded cursor-pointer hover:bg-green-500";
+     
+      default:
+        return "px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500";
+    }
+  };
+
   return (
     <>
       <div className="w-full px-8 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <div className="flex items-center justify-between">
           <span className="text-sm font-light text-gray-600 dark:text-gray-400">
-            Date Ordered: March 10, 2024
+            Date Ordered:{" "}
+            {orderDate.toLocaleString("id-ID", {
+              dateStyle: "full",
+            })}
           </span>
           <div
-            className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500"
+            className={statusButtonColor(order.status)}
             role="button"
           >
             {order.status}
@@ -18,10 +34,10 @@ export default function OrderCard({ order, fetchOrder, handlePayment }) {
         </div>
         <div className="mt-2">
           <Link
-            href="#"
+            href={`/packages/${String(order.Package[0]._id)}`}
             className="text-xl font-bold text-gray-700 dark:text-white hover:text-gray-600 dark:hover:text-gray-200 hover:underline"
           >
-            NAME PACKAGE
+            {order.Package[0].name}
           </Link>
           <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-y">
             <p className="text-gray-600">Husband's name</p>
