@@ -4,6 +4,7 @@ import "aframe";
 import { Scene, Entity } from "aframe-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+export const dynamic = "force-dynamic";
 
 export default function Venues360Page() {
   const [embedded, setEmbedded] = useState(false);
@@ -11,7 +12,7 @@ export default function Venues360Page() {
 
   const handleOnClick = () => {
     router.push("/");
-    setEmbedded(true); 
+    setEmbedded(true);
   };
 
   return (
