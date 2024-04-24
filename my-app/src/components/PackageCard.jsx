@@ -19,7 +19,7 @@ export default function PackageCard({ packageData }) {
         <div className="group-hover:hidden transition-all duration-1000 w-4 absolute overflow-hidden inline-block right-0 -top-6">
           <div className="h-6 bg-pink-900 -rotate-45 transform origin-bottom-right" />
         </div>
-        <h2 className="font-bold text-xl pt-5 text-white">
+        <h2 className="font-bold text-xl pt-5 text-white px-10 text-center">
           {packageData.name}
         </h2>
         <h2 className="text-white font-bold pt-1">
