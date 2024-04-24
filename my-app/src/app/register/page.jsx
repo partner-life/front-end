@@ -108,14 +108,12 @@ export default function RegisterPage() {
               </div>
               <div className="flex items-center justify-center space-x-2">
                 <span className="h-px w-16 bg-gray-200" />
-                <span className="text-gray-300 font-normal">
-                  or continue with
-                </span>
+
                 <span className="h-px w-16 bg-gray-200" />
               </div>
-              <div className="flex flex-row justify-center items-center space-x-3">
+              {/* <div className="flex flex-row justify-center items-center space-x-3">
                 <button className="btn btn-primary">Disini dul</button>
-              </div>
+              </div> */}
               <p className="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
                 <span>
                   Already have an account?{" "}
