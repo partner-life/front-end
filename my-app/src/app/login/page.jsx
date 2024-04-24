@@ -5,6 +5,8 @@ import { showError } from "@/lib/sweetAlert";
 // import { error } from "console";
 import { Typography } from "@material-tailwind/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 
@@ -14,6 +16,7 @@ export default function LoginPage() {
     password: "",
   });
   const cookies = new Cookies();
+  const router = useRouter();
   const handleOnChange = (event) => {
     const { value, name } = event.target;
     setInput({ ...input, [name]: value });
@@ -32,6 +35,8 @@ export default function LoginPage() {
   async function handleCredentialResponse({ credential }) {
     try {
       console.log(credential);
+      const tokenGoogle = credential;
+      // console.log(JSON.stringify(tokenGoogle), "<<<<");
       const response = await fetch(
         process.env.NEXT_PUBLIC_BASE_URL + "/google-login",
         {
@@ -39,30 +44,33 @@ export default function LoginPage() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(credential),
+          body: JSON.stringify({ tokenGoogle }),
         }
       );
-      console.log(response);
-      if (!response.ok) {
-        const result = await response.json();
-        console.log(error);
-      }
+
       const result = await response.json();
-      console.log(result);
-      const { _id, name, username, email, role } = result.user;
+      // console.log(result);
 
-      if (result) {
-        cookies().set("Authorization", `Bearer ${result.access_token}`);
-        cookies().set("UserId", _id);
-        cookies().set("Name", name);
-        cookies().set("Username", username);
-        cookies().set("Email", email);
-        cookies().set("Role", role);
+      if (!response.ok) {
+        // handle error response
+        console.error(result);
+      } else {
+        const { _id, name, username, email, role } = result.user;
+        // console.log(email);
+        if (result) {
+          cookies.set("Authorization", `Bearer ${result.access_token}`);
+          cookies.set("UserId", _id);
+          cookies.set("Name", name);
+          cookies.set("Username", username);
+          cookies.set("Email", email);
+          cookies.set("Role", role);
 
-        if (role == "admin") {
-          return redirect("/cms");
-        } else {
-          return redirect("/");
+          if (role == "admin") {
+            router.push("/cms");
+            // router.push
+          } else {
+            router.push("/");
+          }
         }
       }
     } catch (error) {
@@ -191,7 +199,7 @@ export default function LoginPage() {
                 <span className="h-px w-16 bg-gray-200" />
               </div>
               <div className="flex flex-row justify-center items-center space-x-3">
-                <div id=""></div>
+                <div id="buttonDiv"></div>
               </div>
               <p className="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
                 <span>
