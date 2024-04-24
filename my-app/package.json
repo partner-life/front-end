@@ -11,6 +11,8 @@
   "dependencies": {
     "@material-tailwind/react": "^2.1.9",
     "@talkjs/react": "^0.1.7",
+    "aframe": "^1.5.0",
+    "aframe-react": "^4.4.0",
     "next": "14.2.1",
     "react": "^18",
     "react-dom": "^18",

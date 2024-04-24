@@ -2,17 +2,26 @@
 
 import { Typography } from "@material-tailwind/react";
 import Image from "next/image";
+import Link from "next/link";
 export default function Vanues() {
   return (
     <section className="py-20 px-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto items-center">
-        <Image
-          width={480}
-          height={480}
-          src="/venue.jpg"
-          className="col-span-1 w-1/2 mx-auto lg:w-10/12"
-          alt="venue"
-        />
+        <Link href={"/360"}>
+        <Typography
+            color="orange"
+            className="flex justify-center mb-3 font-bold uppercase"
+          >
+            -ˋˏ ༻❁ Open Preview 360 ❁༺ ˎˊ-
+          </Typography>
+          <Image
+            width={480}
+            height={480}
+            src="/venue.jpeg"
+            className="col-span-1 w-1/2 mx-auto lg:w-10/12"
+            alt="venue"
+          />
+        </Link>
         <div className="col-span-1 mx-auto max-w-lg px-4 lg:px-0">
           <Typography
             color="orange"
