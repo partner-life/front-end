@@ -1,7 +1,7 @@
 "use client";
 
 import { orderPackage, updateOrder } from "@/action/action";
-import { showError } from "@/lib/sweetAlert";
+import { showError, showSuccess } from "@/lib/sweetAlert";
 import { useState } from "react";
 
 export default function ModalFormOrder({
@@ -28,7 +28,8 @@ export default function ModalFormOrder({
   const handleAddPackage = async (event) => {
     event.preventDefault();
     try {
-      await orderPackage(packageId, input);
+      await orderPackage(packageId._id, input);
+      showSuccess(`Success Order Package ${packageId.name}`)
     } catch (error) {
       if (error instanceof Error) {
         showError(error.message);
@@ -42,6 +43,7 @@ export default function ModalFormOrder({
       await updateOrder(order._id, input);
       fetchOrder();
       closeModal();
+      showSuccess("Success update order form.")
     } catch (error) {
       if (error instanceof Error) {
         showError(error.message);

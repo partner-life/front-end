@@ -5,6 +5,7 @@ import ChatPublic from "@/components/ChatPublic";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import OrderCard from "@/components/OrderCard";
+import { showSuccess } from "@/lib/sweetAlert";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
@@ -49,6 +50,7 @@ export default function OrderPage() {
 
       window.snap.pay(token, {
         onSuccess: async () => {
+          showSuccess(`Success payment ${item_name}.`)
           router.refresh();
           // try {
           //   const handleAfterPaymentResponse = await fetch(

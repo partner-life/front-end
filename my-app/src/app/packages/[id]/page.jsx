@@ -120,7 +120,7 @@ export default async function PackageDetailPage({ params }) {
                   })}
                 </span>
                 <div className="flex ml-auto py-2 px-6">
-                  <ModalFormOrder ButtonName={"Order now"} packageId={data._id}/>
+                  <ModalFormOrder ButtonName={"Order now"} packageId={data}/>
                 </div>
               </div>
             </div>

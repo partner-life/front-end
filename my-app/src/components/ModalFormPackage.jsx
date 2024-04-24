@@ -1,6 +1,7 @@
 "use client";
 
 import { addPackage, editPackage } from "@/action/action";
+import { showSuccess } from "@/lib/sweetAlert";
 import { useEffect, useState } from "react";
 
 export default function ModalFormPackage({ ButtonName, packageData }) {
@@ -30,10 +31,13 @@ export default function ModalFormPackage({ ButtonName, packageData }) {
     try {
       const formData = new FormData();
       selectedImages.forEach((image) => formData.append("images", image));
-      const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/add-images", {
-        method: "PATCH",
-        body: formData,
-      });
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_BASE_URL + "/add-images",
+        {
+          method: "PATCH",
+          body: formData,
+        }
+      );
       const data = await response.json();
       console.log("Gambar berhasil diunggah:", data);
       setSelectedImages([]);
@@ -45,7 +49,10 @@ export default function ModalFormPackage({ ButtonName, packageData }) {
 
   const handleImageChange = (event) => {
     setSelectedImages(Array.from(event.target.files));
-    console.log("🚀 ~ handleImageChange ~ setSelectedImages:", "setSelectedImages");
+    console.log(
+      "🚀 ~ handleImageChange ~ setSelectedImages:",
+      "setSelectedImages"
+    );
   };
 
   const handleSubmit = async (event) => {
@@ -54,8 +61,17 @@ export default function ModalFormPackage({ ButtonName, packageData }) {
     console.log("🚀 ~ handleSubmit ~ imgUrl:", images);
     ButtonName === "Add New Package"
       ? await addPackage({ ...formData, imageUrl: images })
-      : await editPackage({ ...formData, _id: packageData._id, imageUrl: images });
+      : await editPackage({
+          ...formData,
+          _id: packageData._id,
+          imageUrl: images,
+        });
     console.log("image...");
+    showSuccess(
+      `Success ${packageData ? "update" : "add"} package ${
+        packageData ? packageData.name : ""
+      }`
+    );
     closeModal();
   };
 
@@ -78,7 +94,11 @@ export default function ModalFormPackage({ ButtonName, packageData }) {
       <div className="relative flex justify-center">
         <button
           onClick={openModal}
-          className={`${ButtonName == "Add New Package" ? "flex ml-auto border-0 py-2 px-6 btn btn-neutral rounded-3xl" : ""}`}
+          className={`${
+            ButtonName == "Add New Package"
+              ? "flex ml-auto border-0 py-2 px-6 btn btn-neutral rounded-3xl"
+              : ""
+          }`}
         >
           {ButtonName}
         </button>
@@ -96,13 +116,22 @@ export default function ModalFormPackage({ ButtonName, packageData }) {
             >
               <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all my-8 w-[50%]">
                 <div className="px-6 pt-5 pb-4">
-                  <h3 className="text-lg font-medium leading-6 text-gray-800 capitalize" id="modal-title">
+                  <h3
+                    className="text-lg font-medium leading-6 text-gray-800 capitalize"
+                    id="modal-title"
+                  >
                     Package
                   </h3>
-                  <p className="mt-2 text-sm text-gray-500">{`${ButtonName == "Add New Package" ? "Create package" : "Update package"}`}</p>
+                  <p className="mt-2 text-sm text-gray-500">{`${
+                    ButtonName == "Add New Package"
+                      ? "Create package"
+                      : "Update package"
+                  }`}</p>
                 </div>
                 <form className="px-6 pt-4 pb-6">
-                  <label className="block text-sm font-medium text-gray-700">Name</label>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Name
+                  </label>
                   <input
                     type="text"
                     placeholder="Name"
@@ -111,7 +140,10 @@ export default function ModalFormPackage({ ButtonName, packageData }) {
                     name="name"
                     value={formData.name}
                   />
-                  <label htmlFor="email2" className="block mt-3 text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="email2"
+                    className="block mt-3 text-sm font-medium text-gray-700"
+                  >
                     Image
                   </label>
                   <div className="flex gap-5">
@@ -122,7 +154,9 @@ export default function ModalFormPackage({ ButtonName, packageData }) {
                       onChange={handleImageChange}
                     />
                   </div>
-                  <label className="block mt-3 text-sm font-medium text-gray-700">Description</label>
+                  <label className="block mt-3 text-sm font-medium text-gray-700">
+                    Description
+                  </label>
                   <textarea
                     type="text"
                     placeholder="Description"
@@ -131,7 +165,9 @@ export default function ModalFormPackage({ ButtonName, packageData }) {
                     name="description"
                     value={formData.description}
                   />
-                  <label className="block mt-3 text-sm font-medium text-gray-700">Category</label>
+                  <label className="block mt-3 text-sm font-medium text-gray-700">
+                    Category
+                  </label>
                   <select
                     defaultValue={""}
                     className="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -143,13 +179,19 @@ export default function ModalFormPackage({ ButtonName, packageData }) {
                       -- Category --
                     </option>
                     {weddingCategory.map((el, index) => (
-                      <option selected={data.category === el ? true : false} key={index} value={el}>
+                      <option
+                        selected={data.category === el ? true : false}
+                        key={index}
+                        value={el}
+                      >
                         {el}
                       </option>
                     ))}
                   </select>
 
-                  <label className="block mt-3 text-sm font-medium text-gray-700">Price</label>
+                  <label className="block mt-3 text-sm font-medium text-gray-700">
+                    Price
+                  </label>
                   <input
                     type="number"
                     placeholder="Price"

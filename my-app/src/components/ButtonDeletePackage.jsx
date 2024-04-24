@@ -1,15 +1,33 @@
 "use client";
 
 import { deletePackage } from "@/action/action";
+import { showSuccessDelete } from "@/lib/sweetAlert";
+import Swal from "sweetalert2";
 
 export default function DeletePackage({ _id }) {
+  const handleDelete = async()=>{
+    const confirmed = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (!confirmed.isConfirmed) {
+      return;
+    }
+    await deletePackage(_id);
+    showSuccessDelete(`Package has been deleted.`);
+
+  }
   return (
     <>
       <button
         className="text-red-500"
-        onClick={async () => {
-          const res = await deletePackage(_id);
-        }}
+        onClick={handleDelete}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
