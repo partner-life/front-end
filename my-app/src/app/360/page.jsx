@@ -2,23 +2,21 @@
 
 import "aframe";
 import { Scene, Entity } from "aframe-react";
-// import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Venues360Page() {
+  const [embedded, setEmbedded] = useState(false);
   const router = useRouter();
 
   const handleOnClick = () => {
     router.push("/");
-    router.refresh();
+    setEmbedded(true); 
   };
 
   return (
-    <Scene>
+    <Scene embedded={embedded}>
       <Entity primitive="a-sky" src="/venue.jpeg" />
-      {/* <Link href="/" className="absolute top-[20px] left-[20px] btn btn-neutral rounded-3xl z-50">
-        Go Back Home
-      </Link> */}
       <button
         onClick={handleOnClick}
         className="absolute top-[20px] left-[20px] btn btn-neutral rounded-3xl z-50"
