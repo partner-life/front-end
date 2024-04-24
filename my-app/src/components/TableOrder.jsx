@@ -82,7 +82,10 @@ export default async function TableOrder({ dataOrders, totalOrder }) {
                     <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">{order.User[0].name}</p>
                   </td>
                   <td className="py-3 px-5 border-b border-blue-gray-50">
-                    <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">{order.price}</p>
+                    <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">{order.price.toLocaleString("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  })}</p>
                   </td>
                   <td className="py-3 px-5 border-b border-blue-gray-50">
                     <div className="w-10/12">

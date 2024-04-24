@@ -42,7 +42,10 @@ export default async function TablePackage() {
                     </div>
                   </td>
                   <td className="py-3 px-5 border-b border-blue-gray-50">
-                    <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">{packageData.price}</p>
+                    <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">{packageData.price.toLocaleString("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  })}</p>
                   </td>
                   <td className="py-3 px-5 border-b border-blue-gray-50">
                     <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">{packageData.category}</p>

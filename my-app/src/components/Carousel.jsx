@@ -11,8 +11,8 @@ export default function Carousel() {
         <div className="absolute inset-0 h-full w-full bg-gray-900/60" />
         <div className="grid min-h-screen px-8">
           <div className="container relative z-10 my-auto mx-auto grid place-items-center text-center">
-            <Typography variant="h1" color="white" className="lg:max-w-3xl">
-              Welcome to Partner of Life
+            <Typography variant="h1" color="orange" className="lg:max-w-4xl">
+              -ˋˏ ༻❁ Welcome Partner of Life ❁༺ ˎˊ-
             </Typography>
             <Typography
               variant="lead"
@@ -21,18 +21,6 @@ export default function Carousel() {
             >
               Make Your Dream Wedding Come True
             </Typography>
-            <div className="flex items-center join">
-              <div>
-                <input
-                  type="text"
-                  className="input input-bordered join-item"
-                  placeholder="Search"
-                />
-              </div>
-              <Button variant="gradient" color="black" className="join-item h-[48px]">
-                Search
-              </Button>
-            </div>
           </div>
         </div>
       </div>
