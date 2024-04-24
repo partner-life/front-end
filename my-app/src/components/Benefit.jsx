@@ -6,25 +6,25 @@ import BenefitCard from "./BenefitCard";
 export default function Benefit() {
   const Benefits = [
     {
-      icon: "/logo.png",
+      icon: "/time.png",
       title: "Saves Time and Energy",
       children:
         "By using a wedding planner, you no longer have to worry about every detail of your wedding.",
     },
     {
-      icon: "/logo.png",
+      icon: "/reduce-cost.png",
       title: "Budget Management",
       children:
         "A wedding planner can help you manage your wedding budget and provide advice on how to save money without sacrificing the quality or experience of your wedding.",
     },
     {
-      icon: "/logo.png",
+      icon: "/efficient.png",
       title: "Efficient Coordination",
       children:
         "A wedding planner can help coordinate all the vendors involved in your wedding, from catering to photographers.",
     },
     {
-      icon: "/logo.png",
+      icon: "/situation.png",
       title: "Handling Unexpected Situations",
       children:
         "By using a wedding planner, you can feel at ease and confident that every detail of your wedding is being taken care of.",
@@ -44,9 +44,7 @@ export default function Benefit() {
           variant="lead"
           className="mx-auto w-full px-4 !text-gray-500 lg:w-11/12 lg:px-8 "
         >
-          Access your learning materials on the go. Whether you&apos;re
-          commuting, waiting for a friend, or just have a few minutes to spare,
-          our app fits seamlessly into your busy life.
+          A wedding planner can help you manage your wedding.
         </Typography>
       </div>
       <div className="container mx-auto grid max-w-6xl grid-cols-1 gap-4 gap-y-12 md:grid-cols-2">
